@@ -2,44 +2,57 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
 
-  <title>The HTML5 Herald</title>
-  <meta name="description" content="Firebase LogIn">
-  <meta name="Brian" content="Firebase Live Data">
+    <title>Welocome to CASH</title>
+    <meta name="description" content="Firebase LogIn">
+    <meta name="Brian" content="Firebase Live Data">
 
-  <!--link rel="stylesheet" href="css/styles.css?v=1.0"-->
-  <link rel="stylesheet" type="text/css" href="assets/css/LoginForm.css">
-  <!--[if lt IE 9]>
+    <!--link rel="stylesheet" href="css/styles.css?v=1.0"-->
+    <link rel="stylesheet" type="text/css" href="assets/css/LoginForm.css">
+    <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-  <![endif]-->
+    <![endif]-->
 
 </head>
 
 <body>
-  <!--script src="js/scripts.js"></script-->
+<!--script src="js/scripts.js"></script-->
 
 
 <div class="login-page">
-  <div class="form">
-    <form class="register-form">
-      <input type="text" placeholder="name"/>
-      <input type="password" placeholder="password"/>
-      <input type="text" placeholder="email address"/>
-      <button>create</button>
-      <p class="message">Already registered? <a href="#">Sign In</a></p>
-    </form>
-    <form class="login-form">
-      <input type="text" placeholder="username"/>
-      <input type="password" placeholder="password"/>
-      <button>login</button>
-      <p class="message">Not registered? <a href="#">Create an account</a></p>
-    </form>
-  </div>
+    <div class="form">
+        <form class="register-form">
+            <input type="text" placeholder="name"/>
+            <input type="password" placeholder="password"/>
+            <input type="text" placeholder="email address"/>
+            <button>create</button>
+            <p class="message">Already registered? <a href="#">Sign In</a></p>
+        </form>
+        <form class="login-form">
+            <input type="text" placeholder="username"/>
+            <input type="password" placeholder="password"/>
+            <button onclick="google_login_in()">login</button>
+            <button onclick="log_out()">Logout</button>
+            <p class="message">Not registered? <a href="#">Create an account</a></p>
+        </form>
+    </div>
 </div>
 </body>
 
-<script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyCk_P9M-wREfr100p9OMafbiVYripukhl8",
+        authDomain: "cash-login.firebaseapp.com",
+        databaseURL: "https://cash-login.firebaseio.com",
+        storageBucket: "cash-login.appspot.com",
+        messagingSenderId: "288160664366"
+    };
+    firebase.initializeApp(config);
+</script>
 <script src="assets/js/firebase.js"></script>
 
 </html>
