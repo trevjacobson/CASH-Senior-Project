@@ -1,41 +1,120 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-		#map { width:400px; height:250px;float:left; }
-	</style>
-	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 </head>
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 17px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px;
+  width: 18px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+</style>
+<!--above is css code from https://www.w3schools.com/howto/howto_css_switch.asp to stylize on/off buttons-->
+<body>
+
    <header>
       <title>Cash Site</title>
 	  </header>
 	  <body style="margin:0;background-color:#1c478e;color:#fff;">
 	      <h1 style="margin:0;padding:5pxbackground-color:#333;color:#fff;">
-		      Welcome to C.A.S.H
+		      Welcome to C.A.S.H   ------------------------------------------------>(camera here)
 		  </h1>
+		  
 		  <div><!--main div start-->
 		    <h3>Here are some security options for your house</h3>
 			<form action="process.php" method="post">
+			<h3>Tracking</h3>
 			<p>
+			<input type="radio" name="trk" value=OneDay>One Day
+			<input type="radio" name="trk" value=SevDay>One Week
+			<input type="radio" name="trk" value=Month>One Month
+			<input type="radio" name="trk" value=NoTrk checked>Off
+			</p>
+			<h3>Choose Alarm settings</h3>
 			    <label for="fd">Front door: </label>
-				<input type="radio" name="fd" value="arm">Arm
-				<input type="radio" name="fd" value="disarm"checked>Disarm
-			</p>
-			<p>
+				 <label for="fd">Off</label>
+				<label class="switch">
+  <input type="checkbox" checked>
+  <div class="slider round"></div>
+</label>
+ <label for="fd">On</label>
+			<p></p>
+			<!--backdoor-->
 			    <label for="bd">Back door: </label>
-				<input type="radio" name="bd" value="arm">Arm
-				<input type="radio" name="bd" value="disarm"checked>Disarm
-			</p>
-			<p>
+				 <label for="fd">Off</label>
+				<label class="switch">
+  <input type="checkbox" checked>
+  <div class="slider round"></div>
+</label>
+ <label for="fd">On</label>
+			<p></p>
+			
 			    <label for="wd">Window: </label>
-				<input type="radio" name="wd" value="arm">Arm
-				<input type="radio" name="wd" value="disarm"checked>Disarm
-			</p>
-			<p>
+				<label for="fd">Off</label>
+				<label class="switch">
+  <input type="checkbox" checked>
+  <div class="slider round"></div>
+</label>
+ <label for="fd">On</label>
+			<p></p>
 			    <label for="ms">Motion sensor: </label>
-				<input type="radio" name="ms" value="arm">Arm
-				<input type="radio" name="ms" value="disarm"checked>Disarm
-			</p>
+				 <label for="fd">Off</label>
+				<label class="switch">
+  <input type="checkbox" checked>
+  <div class="slider round"></div>
+</label>
+ <label for="fd">On</label>
+			<p></p>
 		
 				
 			</form>
@@ -49,12 +128,16 @@
 			
 				<div id="forecast">
 <h1>Current Weather <span id="location"> </span></h1>
+<div id="imgdiv">
 <img id="img" src=""/>
 </div>
 
 </div>
-	<p>It is currently <span id="temp"> </span>ªF with <span id="desc"> </span></p>
-
+	<p>Temp inside: <span id="tempi"> </span> Temp Outside:  <span id="tempo"> </span></p>
+    <p>Wind Outside:  <span id="wind"> </span></p>
+	<p>Pressure inside: <span id="presi"> </span> Pressure Outside:  <span id="preso"> </span></p>
+	<p>Altitude: <span id="altit"> </span> </p>
+	<p>Humidity inside: <span id="humi"> </span> Humidity Outside:  <span id="humo"> </span></p>
 	<script>
 	<!--code from https://www.youtube.com/watch?v=vw7MXBnScVk-->
 	var Geo={};
@@ -105,8 +188,8 @@
 			var msec = d.getMilliseconds();
 			return day + "." + month + "." + year + " " + hour + ":" + mins + ":" + secs + "," + msec;
 		}
+		
 	</script>
-	<h1>Current Weather <span id="location"> </span></h1>
 <div id="imgdiv">
 <img id="img" src=""/>
 </div>
@@ -121,7 +204,10 @@
 				
 			</form>
     </section>
-
+<h2>Power Usage</h2>
+<p>Current KWH: </p>
+<p>Estimated KWH: </p>
+<p>Cost per KW </P>
 </div><!--container end-->
 </body>
    
