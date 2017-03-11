@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html>
+<head>
+<style>
+		#map { width:400px; height:250px;float:left; }
+	</style>
+	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+</head>
    <header>
       <title>Cash Site</title>
 	  </header>
@@ -34,22 +40,89 @@
 				
 			</form>
 		  </div><!--div end-->
-	  </body>
-	<head>
-<meta charset="utf-8">
-<title>Weather APP</title>
-<link rel="stylesheet" href="style.css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-</head>
-<body>
-<div id="forecast">
-<h1>Weather at <span id="location"> </span></h1>
+
+<div id="container">
+		
+    
+	<section>
+			<form>
+			
+				<div id="forecast">
+<h1>Current Weather <span id="location"> </span></h1>
+<img id="img" src=""/>
+</div>
+
+</div>
+	<p>It is currently <span id="temp"> </span>ªF with <span id="desc"> </span></p>
+
+	<script>
+	<!--code from https://www.youtube.com/watch?v=vw7MXBnScVk-->
+	var Geo={};
+	if (navigator.geolocation) {
+			var timeoutVal = 10 * 1000 * 1000;
+			navigator.geolocation.getCurrentPosition(
+				displayPosition, 
+				displayError,
+				{ enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
+			);
+		}
+		else {
+			alert("Geolocation is not supported by this browser");
+		}
+		
+			Geo.lat = position.coords.latitude;
+            Geo.lng = position.coords.longitude;
+		function displayPosition(position) {
+		<!--got a free key-->
+					var weather = new XMLHttpRequest();
+			weather.open("GET", "http://api.wunderground.com/api/b163089817d8ac3b/forecast/geolookup/conditions/q/" + Geo.lat + "," + Geo.lng + ".json", false);
+            weather.send(null);
+			
+			var r=JSOP.parse(weather.response);
+			
+			var w = "Location: "+r.current_observation.display_location.full +" <p>";
+            w += "Current temp: "+ r.current_observation.temperature_string+" <p>";
+            w += "Current wind speed: "+ r.current_observation.wind_string; 	
+			
+           };
+		
+		function displayError(error) {
+			var errors = { 
+				1: 'Permission denied',
+				2: 'Position unavailable',
+				3: 'Request timeout'
+			};
+			alert("Error: " + errors[error.code]);
+		}
+		function parseTimestamp(timestamp) {
+			var d = new Date(timestamp);
+			var day = d.getDate();
+			var month = d.getMonth() + 1;
+			var year = d.getFullYear();
+			var hour = d.getHours();
+			var mins = d.getMinutes();
+			var secs = d.getSeconds();
+			var msec = d.getMilliseconds();
+			return day + "." + month + "." + year + " " + hour + ":" + mins + ":" + secs + "," + msec;
+		}
+	</script>
+	<h1>Current Weather <span id="location"> </span></h1>
 <div id="imgdiv">
 <img id="img" src=""/>
 </div>
-<p>It is currently <span id="temp"> </span>ªF with <span id="desc"> </span></p>
-<p>Wind: <span id="wind"></span></p>
-</div>
+	<div style="clear:both;"></div>
+	<p>
+				<!--	<input type="submit" value="Refresh">-->
+				</p>
+					
+				<!--<p>-->
+				<!--	<div id="map"></div>-->
+				<!--</p> commented code contains a google maps link that we might not need-->
+				
+			</form>
+    </section>
+
+</div><!--container end-->
 </body>
    
 </html>
