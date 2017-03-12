@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="../assets/js/charts.js"></script>
 </head>
 <style>
     .switch {
@@ -9,9 +13,7 @@
         width: 60px;
         height: 17px;
     }
-
     .switch input {display:none;}
-
     .slider {
         position: absolute;
         cursor: pointer;
@@ -23,7 +25,6 @@
         -webkit-transition: .4s;
         transition: .4s;
     }
-
     .slider:before {
         position: absolute;
         content: "";
@@ -35,26 +36,21 @@
         -webkit-transition: .4s;
         transition: .4s;
     }
-
     input:checked + .slider {
         background-color: #2196F3;
     }
-
     input:focus + .slider {
         box-shadow: 0 0 1px #2196F3;
     }
-
     input:checked + .slider:before {
         -webkit-transform: translateX(26px);
         -ms-transform: translateX(26px);
         transform: translateX(26px);
     }
-
     /* Rounded sliders */
     .slider.round {
         border-radius: 34px;
     }
-
     .slider.round:before {
         border-radius: 50%;
     }
@@ -138,6 +134,7 @@
             <p>Pressure inside: <span id="presi"> </span> Pressure Outside:  <span id="preso"> </span></p>
             <p>Altitude: <span id="altit"> </span> </p>
             <p>Humidity inside: <span id="humi"> </span> Humidity Outside:  <span id="humo"> </span></p>
+            <div id="container-graph" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
             <script>
                 <!--code from https://www.youtube.com/watch?v=vw7MXBnScVk-->
                     var Geo={};
@@ -152,7 +149,6 @@
                 else {
                     alert("Geolocation is not supported by this browser");
                 }
-
                 Geo.lat = position.coords.latitude;
                 Geo.lng = position.coords.longitude;
                 function displayPosition(position) {
@@ -160,15 +156,11 @@
                     var weather = new XMLHttpRequest();
                     weather.open("GET", "http://api.wunderground.com/api/b163089817d8ac3b/forecast/geolookup/conditions/q/" + Geo.lat + "," + Geo.lng + ".json", false);
                     weather.send(null);
-
                     var r=JSOP.parse(weather.response);
-
                     var w = "Location: "+r.current_observation.display_location.full +" <p>";
                     w += "Current temp: "+ r.current_observation.temperature_string+" <p>";
                     w += "Current wind speed: "+ r.current_observation.wind_string;
-
                 };
-
                 function displayError(error) {
                     var errors = {
                         1: 'Permission denied',
@@ -188,7 +180,6 @@
                     var msec = d.getMilliseconds();
                     return day + "." + month + "." + year + " " + hour + ":" + mins + ":" + secs + "," + msec;
                 }
-
             </script>
             <div id="imgdiv">
                 <img id="img" src=""/>
