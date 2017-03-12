@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 17px;
+    }
+
+    .switch input {display:none;}
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 13px;
+        width: 18px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+</style>
+<!--above is css code from https://www.w3schools.com/howto/howto_css_switch.asp to stylize on/off buttons-->
+<body>
+
+<header>
+    <title>Cash Site</title>
+</header>
+<body style="margin:0;background-color:#1c478e;color:#fff;">
+<h1 style="margin:0;padding:5pxbackground-color:#333;color:#fff;">
+    Welcome to C.A.S.H   ------------------------------------------------>(camera here)
+</h1>
+
+<div><!--main div start-->
+    <h3>Here are some security options for your house</h3>
+    <form action="process.php" method="post">
+        <h3>Tracking</h3>
+        <p>
+            <input type="radio" name="trk" value=OneDay>One Day
+            <input type="radio" name="trk" value=SevDay>One Week
+            <input type="radio" name="trk" value=Month>One Month
+            <input type="radio" name="trk" value=NoTrk checked>Off
+        </p>
+        <h3>Choose Alarm settings</h3>
+        <label for="fd">Front door: </label>
+        <label for="fd">Off</label>
+        <label class="switch">
+            <input type="checkbox" checked>
+            <div class="slider round"></div>
+        </label>
+        <label for="fd">On</label>
+        <p></p>
+        <!--backdoor-->
+        <label for="bd">Back door: </label>
+        <label for="fd">Off</label>
+        <label class="switch">
+            <input type="checkbox" checked>
+            <div class="slider round"></div>
+        </label>
+        <label for="fd">On</label>
+        <p></p>
+
+        <label for="wd">Window: </label>
+        <label for="fd">Off</label>
+        <label class="switch">
+            <input type="checkbox" checked>
+            <div class="slider round"></div>
+        </label>
+        <label for="fd">On</label>
+        <p></p>
+        <label for="ms">Motion sensor: </label>
+        <label for="fd">Off</label>
+        <label class="switch">
+            <input type="checkbox" checked>
+            <div class="slider round"></div>
+        </label>
+        <label for="fd">On</label>
+        <p></p>
+
+
+    </form>
+</div><!--div end-->
+
+<div id="container">
+
+
+    <section>
+        <form>
+
+            <div id="forecast">
+                <h1>Current Weather <span id="location"> </span></h1>
+                <div id="imgdiv">
+                    <img id="img" src=""/>
+                </div>
+
+            </div>
+            <p>Temp inside: <span id="tempi"> </span> Temp Outside:  <span id="tempo"> </span></p>
+            <p>Wind Outside:  <span id="wind"> </span></p>
+            <p>Pressure inside: <span id="presi"> </span> Pressure Outside:  <span id="preso"> </span></p>
+            <p>Altitude: <span id="altit"> </span> </p>
+            <p>Humidity inside: <span id="humi"> </span> Humidity Outside:  <span id="humo"> </span></p>
+            <script>
+                <!--code from https://www.youtube.com/watch?v=vw7MXBnScVk-->
+                    var Geo={};
+                if (navigator.geolocation) {
+                    var timeoutVal = 10 * 1000 * 1000;
+                    navigator.geolocation.getCurrentPosition(
+                        displayPosition,
+                        displayError,
+                        { enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
+                    );
+                }
+                else {
+                    alert("Geolocation is not supported by this browser");
+                }
+
+                Geo.lat = position.coords.latitude;
+                Geo.lng = position.coords.longitude;
+                function displayPosition(position) {
+                    <!--got a free key-->
+                    var weather = new XMLHttpRequest();
+                    weather.open("GET", "http://api.wunderground.com/api/b163089817d8ac3b/forecast/geolookup/conditions/q/" + Geo.lat + "," + Geo.lng + ".json", false);
+                    weather.send(null);
+
+                    var r=JSOP.parse(weather.response);
+
+                    var w = "Location: "+r.current_observation.display_location.full +" <p>";
+                    w += "Current temp: "+ r.current_observation.temperature_string+" <p>";
+                    w += "Current wind speed: "+ r.current_observation.wind_string;
+
+                };
+
+                function displayError(error) {
+                    var errors = {
+                        1: 'Permission denied',
+                        2: 'Position unavailable',
+                        3: 'Request timeout'
+                    };
+                    alert("Error: " + errors[error.code]);
+                }
+                function parseTimestamp(timestamp) {
+                    var d = new Date(timestamp);
+                    var day = d.getDate();
+                    var month = d.getMonth() + 1;
+                    var year = d.getFullYear();
+                    var hour = d.getHours();
+                    var mins = d.getMinutes();
+                    var secs = d.getSeconds();
+                    var msec = d.getMilliseconds();
+                    return day + "." + month + "." + year + " " + hour + ":" + mins + ":" + secs + "," + msec;
+                }
+
+            </script>
+            <div id="imgdiv">
+                <img id="img" src=""/>
+            </div>
+            <div style="clear:both;"></div>
+            <p>
+                <!--	<input type="submit" value="Refresh">-->
+            </p>
+
+            <!--<p>-->
+            <!--	<div id="map"></div>-->
+            <!--</p> commented code contains a google maps link that we might not need-->
+
+        </form>
+    </section>
+    <h2>Power Usage</h2>
+    <p>Current KWH: </p>
+    <p>Estimated KWH: </p>
+    <p>Cost per KW </P>
+</div><!--container end-->
+</body>
+
+</html>
