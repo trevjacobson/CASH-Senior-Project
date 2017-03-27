@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script-->
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-  <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/modules/exporting.js"></script>
-  <script src="../assets/js/charts.js"></script>
+    <!-- Bootstrap on Local Project -->
+    <link href="../assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="../assets/js/charts.js"></script>
+    <script src="../assets/js/script.js"></script>
 </head>
 <style>
     .switch {
@@ -57,12 +60,12 @@
     }
 </style>
 <!--above is css code from https://www.w3schools.com/howto/howto_css_switch.asp to stylize on/off buttons-->
-<body>
+<body style="margin:0;background-color:#1c478e;color:#fff;">
 
 <header>
     <title>Cash Site</title>
 </header>
-<body style="margin:0;background-color:#1c478e;color:#fff;">
+
 <h1 style="margin:0;padding:5pxbackground-color:#333;color:#fff;">
     Welcome to C.A.S.H   ------------------------------------------------>(camera here)
 </h1>
@@ -130,14 +133,22 @@
                 </div>
 
             </div>
-            <p>Temp inside: <span id="tempi"> </span> Temp Outside:  <span id="tempo"> </span></p>
-            <p>Wind Outside:  <span id="wind"> </span></p>
-            <p>Pressure inside: <span id="presi"> </span> Pressure Outside:  <span id="preso"> </span></p>
-            <p>Altitude: <span id="altit"> </span> </p>
-            <p>Humidity inside: <span id="humi"> </span> Humidity Outside:  <span id="humo"> </span></p>
-            <div id="container-graph" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            <div class="row">
+                <div class="col-xs-4 col-md-4">
+                    <p>Temp inside: <span id="tempi"> </span> Temp Outside:  <span id="tempo"> </span></p>
+                    </br>
+                    <p>Wind Outside:  <span id="wind"> </span></p>
+                    </br>
+                    <p>Pressure inside: <span id="presi"> </span> Pressure Outside:  <span id="preso"> </span></p>
+                    </br>
+                    <p>Altitude: <span id="altit"> </span> </p>
+                    </br>
+                    <p>Humidity inside: <span id="humi"> </span> Humidity Outside:  <span id="humo"> </span></p>
+                </div>
+                <div class="col-xs-8 col-md-6" id="container-graph" style="min-width: 250px; height: 300px; margin: 0 auto"></div>
+            </div>
             <script>
-                <!--code from https://www.youtube.com/watch?v=vw7MXBnScVk-->
+                <!-- code from https://www.youtube.com/watch?v=vw7MXBnScVk -->
                     var Geo={};
                 if (navigator.geolocation) {
                     var timeoutVal = 10 * 1000 * 1000;
@@ -201,6 +212,28 @@
     <p>Estimated KWH: </p>
     <p>Cost per KW </P>
 </div><!--container end-->
+<button id="show-img" type="button" class="btn btn-default">Show Image</button>
+
+<div id="myModal" class="modal fade" aria-labelledby="my-modalLabel" aria-hidden="true" tabindex="-1" role="dialog">
+    <div class="modal-dialog" data-dismiss="modal">
+        <div class="modal-content"  >
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <img src="../assets/img/home01.jpg" class="img-responsive" style="width: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $("#show-img").click(function() {
+        $('#myModal').modal('show')
+    });
+</script>
+
 </body>
 
+<script type="text/javascript" src="../assets/css/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+
 </html>
+
