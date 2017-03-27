@@ -1,5 +1,8 @@
 #contain1 {
-    background-color: #9acfea;
+    background: #9acfea;
+    border-radius: 25px;
+    background: #9acfea;
+    padding: 10px;
 }
 
 /* Move down content because we have a fixed navbar that is 50px tall */
@@ -24,7 +27,7 @@ body {
 .rcorners1 {
     border-radius: 25px;
     background: #9acfea;
-    padding: 20px;
+    padding: 10px;
     width: 200px;
     height: 350px;
 }
