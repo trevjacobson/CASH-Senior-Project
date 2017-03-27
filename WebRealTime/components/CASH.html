@@ -14,7 +14,7 @@
     <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
     <script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="../assets/js/charts.js"></script>
-    <!--script src="../assets/js/script.js"></script-->
+    <script src="../assets/js/script.js"></script>
 </head>
 <style>
     .switch {
@@ -93,6 +93,7 @@
         </div><!--/.navbar-collapse -->
     </div>
 </nav>
+
 
 <div class="jumbotron row-offcanvas row-offcanvas-right">
     <div class="container">
@@ -183,6 +184,9 @@
                 </div>
 
             </div>
+            <div id="get-data">
+                Click Here
+            </div>
             <div class="container-fluid row">
                 <div class="col-xs-4 col-md-4 container rcorners1">
                     <p>Temp inside: <span id="tempi"> </span> Temp Outside:  <span id="tempo"> </span></p>
@@ -197,8 +201,8 @@
                 </div>
                 <div class="col-xs-8 col-md-6" id="container-graph" style="min-width: 250px; height: 300px; margin: 0 auto"></div>
             </div>
-            <script>
-                <!-- code from https://www.youtube.com/watch?v=vw7MXBnScVk HERE!!!!!
+            <!--<script>
+                &lt;!&ndash; code from https://www.youtube.com/watch?v=vw7MXBnScVk HERE!!!!!
                     var Geo={};
                 if (navigator.geolocation) {
                     var timeoutVal = 10 * 1000 * 1000;
@@ -214,7 +218,7 @@
                 Geo.lat = position.coords.latitude;
                 Geo.lng = position.coords.longitude;
                 function displayPosition(position) {
-                    <!--got a free key HERE!!!!!!-->
+                    &lt;!&ndash;got a free key HERE!!!!!!&ndash;&gt;
                     var weather = new XMLHttpRequest();
                     weather.open("GET", "http://api.wunderground.com/api/b163089817d8ac3b/forecast/geolookup/conditions/q/" + Geo.lat + "," + Geo.lng + ".json", false);
                     weather.send(null);
@@ -245,7 +249,7 @@
             </script>
             <div id="imgdiv">
                 <img id="img" src=""/>
-            </div>
+            </div>-->
             <div style="clear:both;"></div>
                 <!--	<input type="submit" value="Refresh">-->
             <!--<p>-->
@@ -277,7 +281,6 @@
         $('#myModal').modal('show')
     });
 </script>
-    -->
 
 <!-- Bootstrap core JavaScript
     ================================================== -->
