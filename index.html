@@ -158,11 +158,13 @@
 				
 			
 				var latti=position.coords.latitude;
+				latti=latti.toPrecision(5);
 				var longi= position.coords.longitude;
-				document.getElementById("latti").innerHTML=latti;
-				document.getElementById("longi").innerHTML=longi;
+				
+				longi=longi.toPrecision(6);
+				document.getElementById("latti").innerHTML=latti
+				document.getElementById("longi").innerHTML=longi
 			var weathertime=new XMLHttpRequest();
-			<!--weathertime.open("GET", "http://api.wunderground.com/api/b163089817d8ac3b/conditions/q/CA/San_Francisco.json", false);-->
 			weathertime.open("GET", "http://api.wunderground.com/api/b163089817d8ac3b/forecast/geolookup/conditions/q/"+latti+","+longi+".json", false);
 			weathertime.send(null);
 			var r = JSON.parse(weathertime.response);
@@ -171,7 +173,10 @@
 			var wind = r.current_observation.wind_string + "<br / >";
 			var press = r.current_observation.pressure_in + "<br / >";
 			var humi = r.current_observation.relative_humidity + "<br / >";
-			var altit = r.current_observation.observation_location.elevation + "<br / >";
+			
+			var altit = r.current_observation.observation_location.elevation;
+                if(altit<0){var altit = r.current_observation.observation_location.elevation + " below sea level<br / >";}	
+				else{var altit = r.current_observation.observation_location.elevation+ " above sea level<br / >";}
 			document.getElementById("weathertime").innerHTML = weathertime;
 			document.getElementById("temp").innerHTML = temp;
 			document.getElementById("wind").innerHTML = wind;
