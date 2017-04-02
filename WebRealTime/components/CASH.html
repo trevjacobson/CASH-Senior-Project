@@ -15,6 +15,7 @@
     <script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="../assets/js/charts.js"></script>
     <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/google_api.js"></script>
 </head>
 <style>
     .switch {
@@ -201,40 +202,90 @@
                 </div>
                 <div class="col-xs-8 col-md-6" id="container-graph" style="min-width: 250px; height: 300px; margin: 0 auto"></div>
             </div>
+
+            <!-- script below -->
+
+            <!-- </p> commented code contains a google maps link that we might not need -->
+            <!-- div id="imgdiv">
+                <img id="img" src=""/>
+            </div>
+            <div style="clear:both;"></div -->
+                <!--	<input type="submit" value="Refresh"> -->
+            <!--<p>-->
+            <!--	<div id="map"></div>-->
+            <!-- </p> commented code contains a google maps link that we might not need -->
+
+        </form>
+    </section>
+    <section>
+        <form>
+
+
+            <div id="forecast">
+                <h1>Current Weather <span id="location"> </span></h1>
+
+
+            </div>
+            <div id="weathertime"></div>
+            <p>Latitude:  <span id="latti"></span> Longitide:  <span id="longi"></span></p>
+            <p>Temp inside: 68.0 F Temp Outside: <span id="temp"></span></p>
+            <p>Wind Outside:  <span id="wind"></span></p>
+            <p>Pressure Outside: <span id="press"> </span> Pressure Inside:  <span id="press"> </span></p>
+            <p>Altitude: <span id="altit"> </span> </p>
+            <p>Humidity Outside: <span id="humi"> </span> Humidity Inside:  <span id="humi"> </span></p>
+            <!-- <div id="container-graph" style="min-width: 310px; height: 400px; margin: 0 auto"></div> (commented out line for now)-->
+            <!--end weather, start kwh-->
+            <h2>Power Usage</h2>
+            <p>Current KWH: </p>
+            <p>Estimated KWH: </p>
+            <p>Cost per KW </P>
+            <!--script below-->
             <!--<script>
-                &lt;!&ndash; code from https://www.youtube.com/watch?v=vw7MXBnScVk HERE!!!!!
-                    var Geo={};
+
+                console.log('this');
+
                 if (navigator.geolocation) {
-                    var timeoutVal = 10 * 1000 * 1000;
-                    navigator.geolocation.getCurrentPosition(
-                        displayPosition,
-                        displayError,
-                        { enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
-                    );
+
+                    navigator.geolocation.getCurrentPosition(showPosition);
                 }
+
                 else {
                     alert("Geolocation is not supported by this browser");
                 }
-                Geo.lat = position.coords.latitude;
-                Geo.lng = position.coords.longitude;
-                function displayPosition(position) {
-                    &lt;!&ndash;got a free key HERE!!!!!!&ndash;&gt;
-                    var weather = new XMLHttpRequest();
-                    weather.open("GET", "http://api.wunderground.com/api/b163089817d8ac3b/forecast/geolookup/conditions/q/" + Geo.lat + "," + Geo.lng + ".json", false);
-                    weather.send(null);
-                    var r=JSOP.parse(weather.response);
-                    var w = "Location: "+r.current_observation.display_location.full +" <p>";
-                    w += "Current temp: "+ r.current_observation.temperature_string+" <p>";
-                    w += "Current wind speed: "+ r.current_observation.wind_string;
-                };
-                function displayError(error) {
-                    var errors = {
-                        1: 'Permission denied',
-                        2: 'Position unavailable',
-                        3: 'Request timeout'
+
+                /*&lt;!&ndash;code from https://www.youtube.com/watch?v=vw7MXBnScVk&ndash;&gt;*/
+
+                    function showPosition(position) {
+
+
+                        var latti=position.coords.latitude;
+                        latti=latti.toPrecision(5);
+                        var longi= position.coords.longitude;
+
+                        longi=longi.toPrecision(6);
+                        document.getElementById("latti").innerHTML=latti
+                        document.getElementById("longi").innerHTML=longi
+                        var weathertime=new XMLHttpRequest();
+                        weathertime.open("GET", "http://api.wunderground.com/api/b163089817d8ac3b/forecast/geolookup/conditions/q/"+latti+","+longi+".json", false);
+                        weathertime.send(null);
+                        var r = JSON.parse(weathertime.response);
+                        var weathertime = "Current location: " +r.current_observation.display_location.full + "<br />";
+                        var temp=r.current_observation.temperature_string + "<br />";
+                        var wind = r.current_observation.wind_string + "<br / >";
+                        var press = r.current_observation.pressure_in + "<br / >";
+                        var humi = r.current_observation.relative_humidity + "<br / >";
+
+                        var altit = r.current_observation.observation_location.elevation;
+                        if(altit<0){var altit = r.current_observation.observation_location.elevation + " below sea level<br / >";}
+                        else{var altit = r.current_observation.observation_location.elevation+ " above sea level<br / >";}
+                        document.getElementById("weathertime").innerHTML = weathertime;
+                        document.getElementById("temp").innerHTML = temp;
+                        document.getElementById("wind").innerHTML = wind;
+                        document.getElementById("press").innerHTML = press;
+                        document.getElementById("humi").innerHTML = humi;
+                        document.getElementById("altit").innerHTML = altit;
                     };
-                    alert("Error: " + errors[error.code]);
-                }
+
                 function parseTimestamp(timestamp) {
                     var d = new Date(timestamp);
                     var day = d.getDate();
@@ -246,15 +297,9 @@
                     var msec = d.getMilliseconds();
                     return day + "." + month + "." + year + " " + hour + ":" + mins + ":" + secs + "," + msec;
                 }
-            </script>
-            <div id="imgdiv">
-                <img id="img" src=""/>
-            </div>-->
-            <div style="clear:both;"></div>
-                <!--	<input type="submit" value="Refresh">-->
-            <!--<p>-->
-            <!--	<div id="map"></div>-->
+            </script>-->
             <!--</p> commented code contains a google maps link that we might not need-->
+
 
         </form>
     </section>
@@ -293,4 +338,3 @@
 <!--script type="text/javascript" src="../assets/css/bootstrap-3.3.7-dist/js/bootstrap.js"></script-->
 
 </html>
-
