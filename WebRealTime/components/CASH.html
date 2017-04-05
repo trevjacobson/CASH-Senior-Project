@@ -87,8 +87,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <form class="navbar-form navbar-right">
-                <button type="submit" class="btn btn-success">Camera 1</button>
-                <button type="submit" class="btn btn-success">Camera 2</button>
+                <button type="submit" class="btn btn-success">Profiles</button>
                 <button type="submit" class="btn btn-success">Settings</button>
             </form>
         </div><!--/.navbar-collapse -->
@@ -111,13 +110,13 @@
 <!--div><!--main div start HERE!!!!>
     <h3>Here are some security options for your house</h3-->
     <form class="container-fluid" action="process.php" method="post">
-        <h3>Tracking</h3>
+        <!--<h3>Tracking</h3>
         <p>
             <input type="radio" name="trk" value=OneDay>One Day
             <input type="radio" name="trk" value=SevDay>One Week
             <input type="radio" name="trk" value=Month>One Month
             <input type="radio" name="trk" value=NoTrk checked>Off
-        </p>
+        </p>-->
 
         <div class="container-fluid " id="contain1">
             <h3>Choose Alarm settings</h3>
@@ -173,22 +172,55 @@
 </div>
 
 <div class="container-fluid" id="container">
+    <section>
+        <form>
+            <div id="forcast">
+                <h1>Current Weather <h3><span id="weathertime"></span></h3></h1>
+            </div>
+            <h3>Latitude:  <span id="latti"></span> Longitide:  <span id="longi"></span></h3>
+            <div class="container-fluid row">
+                <!-- Weather Indoors -->
+                <div class="col-xs-4 col-md-4 container rcorners1">
+                    <p>Temp inside: 68.0 F <span id="tempi"> </span></p>
+                    </br>
+                    <p>Pressure Inside: <span id="presi"> </span> </p>
+                    </br>
+                    <p>Humidity inside: <span id="humi"> </span></p>
+                </div>
+                <!-- Weather Outdoors -->
+                <div class="col-xs-4 col-md-4 container rcorners2">
+                    <p>Temp Outside: <span id="temp"> </span></p>
+                    </br>
+                    <p>Wind Outside: <span id="wind"></span></p>
+                    </br>
+                    <p>Pressure Outside: <span id="press"> </span> </p>
+                    </br>
+                    <p>Humidity Outside: <span id="humi"> </span></p>
+                </div>
+                <div class="col-xs-12 col-md-6" id="container-graph" style="min-width: 250px; height: 300px; margin: 0 auto"></div>
+            </div>
+
+        </form>
+    </section>
+</div>
+
+<div class="container-fluid" id="container">
 
 
     <section>
         <form>
 
-            <div id="forecast">
+            <!--<div id="forecast">
                 <h1>Current Weather <span id="location"> </span></h1>
                 <div id="imgdiv">
                     <img id="img" src=""/>
-                </div>
+                </div>-->
 
             </div>
             <div id="get-data">
                 Click Here
             </div>
-            <div class="container-fluid row">
+            <!--<div class="container-fluid row">
                 <div class="col-xs-4 col-md-4 container rcorners1">
                     <p>Temp inside: <span id="tempi"> </span> Temp Outside:  <span id="tempo"> </span></p>
                     </br>
@@ -201,7 +233,7 @@
                     <p>Humidity inside: <span id="humi"> </span> Humidity Outside:  <span id="humo"> </span></p>
                 </div>
                 <div class="col-xs-8 col-md-6" id="container-graph" style="min-width: 250px; height: 300px; margin: 0 auto"></div>
-            </div>
+            </div>-->
 
             <!-- script below -->
 
@@ -217,7 +249,7 @@
 
         </form>
     </section>
-    <section>
+    <!--<section>
         <form>
 
 
@@ -233,72 +265,12 @@
             <p>Pressure Outside: <span id="press"> </span> Pressure Inside:  <span id="press"> </span></p>
             <p>Altitude: <span id="altit"> </span> </p>
             <p>Humidity Outside: <span id="humi"> </span> Humidity Inside:  <span id="humi"> </span></p>
-            <!-- <div id="container-graph" style="min-width: 310px; height: 400px; margin: 0 auto"></div> (commented out line for now)-->
-            <!--end weather, start kwh-->
+            &lt;!&ndash; <div id="container-graph" style="min-width: 310px; height: 400px; margin: 0 auto"></div> (commented out line for now)&ndash;&gt;
+            &lt;!&ndash;end weather, start kwh&ndash;&gt;
             <h2>Power Usage</h2>
             <p>Current KWH: </p>
             <p>Estimated KWH: </p>
             <p>Cost per KW </P>
-            <!--script below-->
-            <!--<script>
-
-                console.log('this');
-
-                if (navigator.geolocation) {
-
-                    navigator.geolocation.getCurrentPosition(showPosition);
-                }
-
-                else {
-                    alert("Geolocation is not supported by this browser");
-                }
-
-                /*&lt;!&ndash;code from https://www.youtube.com/watch?v=vw7MXBnScVk&ndash;&gt;*/
-
-                    function showPosition(position) {
-
-
-                        var latti=position.coords.latitude;
-                        latti=latti.toPrecision(5);
-                        var longi= position.coords.longitude;
-
-                        longi=longi.toPrecision(6);
-                        document.getElementById("latti").innerHTML=latti
-                        document.getElementById("longi").innerHTML=longi
-                        var weathertime=new XMLHttpRequest();
-                        weathertime.open("GET", "http://api.wunderground.com/api/b163089817d8ac3b/forecast/geolookup/conditions/q/"+latti+","+longi+".json", false);
-                        weathertime.send(null);
-                        var r = JSON.parse(weathertime.response);
-                        var weathertime = "Current location: " +r.current_observation.display_location.full + "<br />";
-                        var temp=r.current_observation.temperature_string + "<br />";
-                        var wind = r.current_observation.wind_string + "<br / >";
-                        var press = r.current_observation.pressure_in + "<br / >";
-                        var humi = r.current_observation.relative_humidity + "<br / >";
-
-                        var altit = r.current_observation.observation_location.elevation;
-                        if(altit<0){var altit = r.current_observation.observation_location.elevation + " below sea level<br / >";}
-                        else{var altit = r.current_observation.observation_location.elevation+ " above sea level<br / >";}
-                        document.getElementById("weathertime").innerHTML = weathertime;
-                        document.getElementById("temp").innerHTML = temp;
-                        document.getElementById("wind").innerHTML = wind;
-                        document.getElementById("press").innerHTML = press;
-                        document.getElementById("humi").innerHTML = humi;
-                        document.getElementById("altit").innerHTML = altit;
-                    };
-
-                function parseTimestamp(timestamp) {
-                    var d = new Date(timestamp);
-                    var day = d.getDate();
-                    var month = d.getMonth() + 1;
-                    var year = d.getFullYear();
-                    var hour = d.getHours();
-                    var mins = d.getMinutes();
-                    var secs = d.getSeconds();
-                    var msec = d.getMilliseconds();
-                    return day + "." + month + "." + year + " " + hour + ":" + mins + ":" + secs + "," + msec;
-                }
-            </script>-->
-            <!--</p> commented code contains a google maps link that we might not need-->
 
 
         </form>
@@ -306,7 +278,7 @@
     <h2>Power Usage</h2>
     <p>Current KWH: </p>
     <p>Estimated KWH: </p>
-    <p>Cost per KW </P>
+    <p>Cost per KW </P>-->
 </div><!--container end HERE!!!!!!!!-->
 <button id="show-img" type="button" class="btn btn-default">Show Camera</button>
 
