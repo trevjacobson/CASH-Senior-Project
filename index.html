@@ -138,9 +138,9 @@
            <!-- <div id="container-graph" style="min-width: 310px; height: 400px; margin: 0 auto"></div> (commented out line for now)-->
 			<!--end weather, start kwh-->
 			 <h2>Power Usage</h2>
-    <p>Current KWH: <span id="cur"></span> </p>
-    <p>Estimated KWH: <span id="esti"></span></p>
-    <p>Cost per KW <span id="cst"></span></P>
+    <p>Residential KWH: <span id="resid"></span> </p>
+    <p>Commercial KWH: <span id="comc"></span></p>
+    <p>Industrial KWH <span id="ind"></span></P>
 	<!--script below-->
             <script>
 		
@@ -191,9 +191,14 @@
 			
 			kwh.send(null);
 			var k = JSON.parse(kwh.response);
-			var cur=k.outputs.residential+ "<br />";
+			var resid=k.outputs.residential+ "<br />";
+			var comc=k.outputs.commercial+ "<br />";
+			var ind=k.outputs.industrial+ "<br />";
+			
 			<!--suggestion: maybe we replace current with residential, estimated with commercial, and cost with industrial?-->
-			document.getElementById("cur").innerHTML = cur;
+			document.getElementById("resid").innerHTML = resid;
+			document.getElementById("comc").innerHTML = comc;
+			document.getElementById("ind").innerHTML = ind;
                 };
                 
                 function parseTimestamp(timestamp) {
