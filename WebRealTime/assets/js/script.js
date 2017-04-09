@@ -2,33 +2,32 @@
  * Created by Brian on 3/25/2017.
  */
 $(function() {
+
+    // current blank profiles
+    var profiles;
+
     // Navigation
     function render(url) {
       
     }
-
-    /*$("a").click(function( event ) {
-       event.preventDefault();
-        $.get("profiles.html", function(data) {
-            $('div.component-cash').html(data);
-            console.log(data);
-        });
-    });*/
 
     $("a").click(function(event) {
         event.preventDefault();
         var href = $(this).attr('href');
         console.log(href);
         $('div.component-cash').show();
-        $('div.component-profile').hide(1000, function() {
+        //$('div.component-profile').hide();
+        profiles = $('.component-profile').empty();
+        console.log(profiles);
+       /* $('div.component-profile').hide(1000, function() {
             $(this).hide();
-        });
+        });*/
     });
 
     $('#change-div').click(function () {
-        //$('div.component-cash').replaceWith('<h2>New heading</h2>');
         var pathArray = window.location.pathname.split( '/' );
-        $('div.component-profile').replaceWith('<h2>New heading</h2>');
+        //$('div.component-profile').load("profiles.html");
+        $('div.component-profile').html('<h2>New heading</h2>');
         $('div.component-cash').hide(1000, function() {
             $(this).hide();
         });
