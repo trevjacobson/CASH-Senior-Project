@@ -204,6 +204,66 @@
                  <p>Commercial KWH: <span id="comc"></span></p>
                  <p>Industrial KWH <span id="ind"></span></p>
                 <div class="col-xs-12 col-md-6" id="container-graph" style="min-width: 250px; height: 300px; margin: 0 auto"></div>
+    
+    
+     <script>
+		
+                if (navigator.geolocation) {
+				
+                    navigator.geolocation.getCurrentPosition(showPosition);
+						}
+		
+                else {
+                    alert("Geolocation is not supported by this browser");
+                }
+				
+                <!--code from https://www.youtube.com/watch?v=vw7MXBnScVk-->
+                
+                function showPosition(position) {
+				
+			
+				var latti=position.coords.latitude;
+				latti=latti.toPrecision(5);
+				var longi= position.coords.longitude;
+				
+				longi=longi.toPrecision(6);
+				document.getElementById("latti").innerHTML=latti
+				document.getElementById("longi").innerHTML=longi
+			var weathertime=new XMLHttpRequest();
+			weathertime.open("GET", "http://api.wunderground.com/api/b163089817d8ac3b/forecast/geolookup/conditions/q/"+latti+","+longi+".json", false);
+			weathertime.send(null);
+			var r = JSON.parse(weathertime.response);
+			var weathertime = "Current location: " +r.current_observation.display_location.full + "<br />";
+			var temp=r.current_observation.temperature_string + "<br />";
+			var wind = r.current_observation.wind_string + "<br / >";
+			var press = r.current_observation.pressure_in + "<br / >";
+			var humi = r.current_observation.relative_humidity + "<br / >";
+			
+			var altit = r.current_observation.observation_location.elevation;
+                if(altit<0){var altit = r.current_observation.observation_location.elevation + " below sea level<br / >";}	
+				else{var altit = r.current_observation.observation_location.elevation+ " above sea level<br / >";}
+			document.getElementById("weathertime").innerHTML = weathertime;
+			document.getElementById("temp").innerHTML = temp;
+			document.getElementById("wind").innerHTML = wind;
+			document.getElementById("press").innerHTML = press;
+			document.getElementById("humi").innerHTML = humi;
+			document.getElementById("altit").innerHTML = altit;
+			
+			<!--nrel api=8pvz4NoEeIyNMVOTGI7u3BDh3gL7jryUfSkAU2ZV-->
+			var kwh=new XMLHttpRequest();
+			kwh.open("GET", "http://developer.nrel.gov/api/utility_rates/v3.json?api_key=8pvz4NoEeIyNMVOTGI7u3BDh3gL7jryUfSkAU2ZV&lat="+latti+"&lon="+longi+"", false);
+			
+			kwh.send(null);
+			var k = JSON.parse(kwh.response);
+			var resid=k.outputs.residential+ "<br />";
+			var comc=k.outputs.commercial+ "<br />";
+			var ind=k.outputs.industrial+ "<br />";
+			document.getElementById("resid").innerHTML = resid;
+			document.getElementById("comc").innerHTML = comc;
+			document.getElementById("ind").innerHTML = ind;
+                };
+                
+            </script>
             </div>
 
         </form>
