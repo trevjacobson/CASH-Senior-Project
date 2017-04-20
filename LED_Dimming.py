@@ -1,6 +1,18 @@
 import RPi.GPIO as GPIO  # GPIO Library
 import time  # for sleep function
 
+class LED(object):
+
+    def __init__(self):
+        self.light = 0
+
+    def getLight(self):
+        return self.light
+
+    def setLight(self, dimLevel):
+        self.light = dimLevel
+
+
 GPIO.setmode(GPIO.BCM)  # BCM = numbers in green box next to GPIO bins
 
 GPIO.setup(25, GPIO.OUT)  # set GPIO 25 as output for green led
