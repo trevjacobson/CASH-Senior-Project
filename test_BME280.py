@@ -1,5 +1,4 @@
-import adafruit_BME280
-
+import Adafruit_BME280
 
 
 def readWeather(sensor):
@@ -7,8 +6,8 @@ def readWeather(sensor):
     pascals = sensor.read_pressure()
     hectopascals = pascals / 100
     humidity = sensor.read_humidity()
-
-    print("Timestamp = {0:0.3f}".format(sensor.t_fine))
-    print("Temp      = {0:0.3f} deg C".format(degrees))
-    print("Pressure  = {0:0.2f} hPa".format(hectopascals))
-    print("Humidity  = {0:0.2f} %".format(humidity))
+    altitude = (1-(hectopascals/1013.25)**0.190284)*145366.45
+    print "Temp      = {0:0.3f} deg C".format(degrees)
+    print "Pressure  = {0:0.2f} hPa".format(hectopascals)
+    print "Humidity  = {0:0.2f} %".format(humidity)
+    print "Altitude  = {0:0.0f} ft".format(altitude)
