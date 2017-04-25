@@ -135,6 +135,17 @@
 
                 <div class="col-md-3 col-sm-4">
                     <label for="bd">Back door: </label>
+v                    <label for="fd">Off</label>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <div class="slider round"></div>
+                    </label>
+                    <label for="fd">On</label>
+                    <p></p>
+                 </div>
+
+                <div class="col-md-3 col-sm-4">
+i                    <label for="wd">Window: </label>
                     <label for="fd">Off</label>
                     <label class="switch">
                         <input type="checkbox" checked>
@@ -144,18 +155,7 @@
                     <p></p>
                 </div>
 
-                <div class="col-md-3 col-sm-4">
-                    <label for="wd">Window: </label>
-                    <label for="fd">Off</label>
-                    <label class="switch">
-                        <input type="checkbox" checked>
-                        <div class="slider round"></div>
-                    </label>
-                    <label for="fd">On</label>
-                    <p></p>
-                </div>
-
-                <div class="col-md-3 col-sm-4">
+d                <div class="col-md-3 col-sm-4">
                     <label for="ms">Motion sensor: </label>
                     <label for="fd">Off</label>
                     <label class="switch">
@@ -165,7 +165,6 @@
                     <label for="fd">On</label>
                     <p></p>
                 </div>
-
             </div>
         </div>
 
@@ -177,6 +176,7 @@
         <form>
             <div id="forcast">
                 <h1>Current Weather <h3><span id="weathertime"></span></h3></h1>
+		   <span id="kwh"></span> 
             </div>
             <h3>Latitude:  <span id="latti"></span> Longitide:  <span id="longi"></span></h3>
             <div class="container-fluid row">
@@ -197,7 +197,8 @@
                     <p>Pressure Outside: <span id="press"> </span> </p>
                     </br>
                     <p>Humidity Outside: <span id="humo"> </span></p>
-	            </br>
+	            </div>
+	 <div class="col-xs-4 col-md-4 container rcorners3">
 	            <p>Residential KWH: <span id="resid"></span> </p>
 	         </br>
                  <p>Commercial KWH: <span id="comc"></span></p>
