@@ -26,13 +26,6 @@ led1 = LED_Dimming.LED(23)    #blue led
 led2 = LED_Dimming.LED(24)    #green led
 led3 = LED_Dimming.LED(25)    #red led
 
-led1.setLight(100)
-led2.setLight(40)
-led3.setLight(1)
-
-
-
-
 #initialize BME280 weather sensor
 sensor = Adafruit_BME280.BME280(mode=Adafruit_BME280.BME280_OSAMPLE_8)
 test_BME280.readWeather(sensor)
