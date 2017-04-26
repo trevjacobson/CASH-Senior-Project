@@ -4,7 +4,7 @@ import threading
 
 # calls a new thread to start streaming and recording functions streamtoWeb.py
 def start_stream():
-    import streamToWeb
+    import Camera.streamToWeb
 
 
 testInput = "Hi"

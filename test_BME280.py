@@ -27,5 +27,3 @@ def readWeather(sensor):
     print("Pressure  = {0:0.2f} hPa".format(hectopascals))
     print("Humidity  = {0:0.2f} %".format(humidity))
 
-
-readWeather("me")

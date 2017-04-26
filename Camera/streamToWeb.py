@@ -7,6 +7,7 @@ from http import server
 import json
 import time
 import threading
+from subprocess import call
 
 PAGE = """\
 <html>
@@ -84,6 +85,12 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     daemon_threads = True
 
 
+
+def convertToMP4(timeFileName):
+    convertToMP4 = "This needs to be pathed to the folder containing the files/MP4Box -add " + timeFileName  + ".h264 " + timeFileName + ".mp4"
+    call (convertToMP4, shell=True)
+
+
 # cannot do circular buffer to concatinate to recording,
 # circular buffer (picamera spitter) in use for streaming
 # record on motion function
@@ -108,6 +115,10 @@ def recordMotion():
             camera.stop_recording(splitter_port=2)
 
             print("done recording")
+
+            # to be put under print ("done recording") on line ~109
+            tconv = threading.Thread(target=convertToMP4(timeFileName))
+            tconv.start()
 
             # set jason file to null for next motion event
             testInput = "null"

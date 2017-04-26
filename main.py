@@ -4,8 +4,8 @@ import Adafruit_BME280 #weather sensor class
 import LED_Dimming #LED class contol module
 import Door_Switch #doorsensor control module
 import test_BME280 #function to read BME280
-
-
+import threading
+import Camera
 
 GPIO.setmode(GPIO.BCM)  # BCM = nclumbers in green box next to GPIO bins
 
@@ -17,9 +17,6 @@ GPIO.setup(25, GPIO.OUT)  # set GPIO 24 as output for red led
 #-------------door switch pin--------------------#
 GPIO.setup(17, GPIO.IN, GPIO.PUD_UP) #set GPIO 17 as input for door sensor
 
-#--------------BME280 setup----------------------#
-
-
 
 #Initialize each led
 led1 = LED_Dimming.LED(23)    #blue led
@@ -30,14 +27,27 @@ led3 = LED_Dimming.LED(25)    #red led
 sensor = Adafruit_BME280.BME280(mode=Adafruit_BME280.BME280_OSAMPLE_8)
 test_BME280.readWeather(sensor)
 
-
 #initialize the door sensor to read gpio 17
 doorSensor = Door_Switch.doorSensor()
 
-if doorSensor.readDoorSensor(17):
-    print("switch is open")
-else:
-    print("switch is closed")
+#t = threading.Thread(target=Camera.mainCamera)
+#t.start()
+
+while True:
+
+    Door_Switch.doorSensor.writeAlarm()
+    Door_Switch.doorSensor.readDoorSensor(17)
+    Door_Switch.doorSensor.readAlarm()
+
+    test_BME280.readWeather(sensor)
+
+    LED_Dimming.writeLed(led1,led2,led3)
+    LED_Dimming.readLed(led1,led2,led3)
+
+    if doorSensor.readDoorSensor(17):
+        print("switch is open")
+    else:
+        print("switch is closed")
 
 time.sleep(5)
 GPIO.cleanup()

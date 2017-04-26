@@ -1,5 +1,7 @@
 import RPi.GPIO as GPIO
 import os
+import pygame
+import json
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.IN, GPIO.PUD_UP)
@@ -16,28 +18,35 @@ class doorSensor(object):
     def setAlarm(self, alarm):
         self.alarm = alarm
 
-    def getAlarm(self):
-        return self.alarm;
 
     def readDoorSensor(self, doorGPIO):
         if self.alarm == "on" & self.door == 1:
             self.alarm == "triggered"
+            pygame.mixer.init()
+            pygame.mixer.music.load("houseAlarm.wav")
+            pygame.mixer.music.play()
+            while pygame.mixer.music.get_busy() == True:
+                continue
 
         if GPIO.input(doorGPIO):
             self.door = 1;
             return 1;
         else:
-            self.door = 0;
+            if self.alarm == "on" :
+                self.door = 1;
+            else:
+                self.door = 0;
             return 0;
 
     def writeAlarm(self):
         j_obj = {};
         j_obj['module'] = "alarm"
         j_obj['state'] = self.alarm
+
+        output = json.dumps(j_obj)
         file_obj = open(PiAlarm, "w")
-        os.ftruncate(file_obj, 0)
-        os.lseek(fd, 0, os.SEEK_SET)
-        file_obj.write(j_obj)
+        file_obj.truncate()
+        file_obj.write(output)
         file_obj.close()
 
     def readAlarm(self):
@@ -45,6 +54,8 @@ class doorSensor(object):
         file_content = file_obj.read()
         j_obj = json.loads(file_content)
         state = j_obj['state']
+        if self.alarm == "triggered" & state == "off":
+            pygame.mixer.stop()
         self.alarm = state
 
 
