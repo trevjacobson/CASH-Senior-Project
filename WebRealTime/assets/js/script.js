@@ -2,7 +2,194 @@
  * Created by Brian on 3/25/2017.
  */
 $(function() {
-
+	
+	///////////////////////////////////////
+	/// Functionality for Toggles
+	///
+	///////////////////////////////////////
+	// create all toggles
+	$('.toggles').toggles();
+	
+	// Getting notified of changes on toggles, and the new state: Front Door
+	$('.toggles-fd').on('toggle', function(e, active) {
+		// when switched on
+		if (active) {
+		console.log('Toggle is now ON!');
+		
+			// start ajax call
+			$.ajax({
+				/* *
+				 * URL: Place file path for php
+				 * */
+				url: "../data/request.php",
+				data: {
+					'writeRequest': 'alarm',
+					'requestValue' : 'ON'
+				},
+				type: "POST",
+				context: document.body
+			}).success(function(msg) {
+				console.log('wow ' + msg);
+			});
+			// end ajax call
+			
+		} else {
+			console.log('Toggle is now OFF!');
+		
+			// start ajax call
+			$.ajax({
+				/* *
+				 * URL: Place file path for php
+				 * */
+				url: "../data/request.php",
+				data: {
+					'writeRequest': 'alarm',
+					'requestValue' : 'OFF'
+				},
+				type: "POST",
+				context: document.body
+			}).success(function(msg) {
+				console.log('wow ' + msg);
+			});
+			// end ajax call
+		}
+	});
+	
+	// Getting notified of changes on toggles, and the new state: Light 1
+	$('.toggles-l1').on('toggle', function(e, active) {
+		// when switched on
+		if (active) {
+		console.log('Toggle is now ON!');
+		
+			// start ajax call
+			$.ajax({
+				/* *
+				 * URL: Place file path for php
+				 * */
+				url: "../data/request.php",
+				data: {
+					'writeRequest': 'Light1',
+					'requestValue' : '100'
+				},
+				type: "POST",
+				context: document.body
+			}).success(function(msg) {
+				console.log('wow ' + msg);
+			});
+			// end ajax call
+			
+		} else {
+			console.log('Toggle is now OFF!');
+		
+			// start ajax call
+			$.ajax({
+				/* *
+				 * URL: Place file path for php
+				 * */
+				url: "../data/request.php",
+				data: {
+					'writeRequest': 'Light1',
+					'requestValue' : '0'
+				},
+				type: "POST",
+				context: document.body
+			}).success(function(msg) {
+				console.log('wow ' + msg);
+			});
+			// end ajax call
+		}
+	});
+	
+	// Getting notified of changes on toggles, and the new state: Light 2
+	$('.toggles-l2').on('toggle', function(e, active) {
+		// when switched on
+		if (active) {
+		console.log('Toggle is now ON!');
+		
+			// start ajax call
+			$.ajax({
+				/* *
+				 * URL: Place file path for php
+				 * */
+				url: "../data/request.php",
+				data: {
+					'writeRequest': 'Light2',
+					'requestValue' : '100'
+				},
+				type: "POST",
+				context: document.body
+			}).success(function(msg) {
+				console.log('wow ' + msg);
+			});
+			// end ajax call
+			
+		} else {
+			console.log('Toggle is now OFF!');
+		
+			// start ajax call
+			$.ajax({
+				/* *
+				 * URL: Place file path for php
+				 * */
+				url: "../data/request.php",
+				data: {
+					'writeRequest': 'Light2',
+					'requestValue' : '0'
+				},
+				type: "POST",
+				context: document.body
+			}).success(function(msg) {
+				console.log('wow ' + msg);
+			});
+			// end ajax call
+		}
+	});
+	
+	// Getting notified of changes on toggles, and the new state: Light 3
+	$('.toggles-l3').on('toggle', function(e, active) {
+		// when switched on
+		if (active) {
+		console.log('Toggle is now ON!');
+		
+			// start ajax call
+			$.ajax({
+				/* *
+				 * URL: Place file path for php
+				 * */
+				url: "../data/request.php",
+				data: {
+					'writeRequest': 'Light3',
+					'requestValue' : '100'
+				},
+				type: "POST",
+				context: document.body
+			}).success(function(msg) {
+				console.log('wow ' + msg);
+			});
+			// end ajax call
+			
+		} else {
+			console.log('Toggle is now OFF!');
+		
+			// start ajax call
+			$.ajax({
+				/* *
+				 * URL: Place file path for php
+				 * */
+				url: "../data/request.php",
+				data: {
+					'writeRequest': 'Light3',
+					'requestValue' : '0'
+				},
+				type: "POST",
+				context: document.body
+			}).success(function(msg) {
+				console.log('wow ' + msg);
+			});
+			// end ajax call
+		}
+	});
+	
     // current blank profiles
     var profiles;
 
@@ -10,6 +197,102 @@ $(function() {
     function render(url) {
       
     }
+    
+    // Function: Load profiles
+    $("button#db-profiles").click(function() {
+		event.preventDefault();
+		$('div.component-profile').html('<h2>Loading...</h2>');
+		$('div.component-cash').hide(1000, function() {
+            $(this).hide();
+        });
+        // get data
+        var json_data
+        $.ajax({
+			url: "../data/script.php",
+			type: "GET",
+			context: document.body
+		}).done(function(obj) {
+			console.log("success");
+			console.log(obj);
+			var json_data = JSON.parse(obj);
+			console.log(json_data);
+			
+			/*
+			// add table to html
+			$('div.component-profile').html('<table id="myTable"></table>');
+			
+			// output the result into a table
+			
+			var content = '<tr> result </tr>';
+			$('#myTable tbody').append(content);
+			* */
+			
+			// clear out the html
+			$('div.component-profile').html('</br>');
+			
+			var parentDiv = $('div.component-profile');
+			var pTable = $("<table>", {
+				"id": "newTable",
+				"class": "container-fluid table table-bordered"
+			}).appendTo(parentDiv);
+			/*var tRow = $("<tr>", {
+				"class": "trClass"
+			}).appendTo(pTable).html('result');
+			* */
+			// get lengths
+			var rowCount = json_data.length;
+			var colCount = Object.keys(json_data[0]).length;
+			console.log('rows: ' + rowCount + ', cols: ' + colCount);
+			
+			
+			console.log(json_data[0][Object.keys(json_data[0])[0]]);
+			// Loop for header
+			var headerRow = $("<tr>", {
+				"class": "trClass table-success" // TODO: table-success not working
+			}).appendTo(pTable);
+			for (var j = 0; j < colCount; j++) {
+				$("<th>", {
+					"class": "thClass"
+				}).appendTo(headerRow).html(Object.keys(json_data[0])[j]);
+			}
+			// end header Loop
+			
+			// Loop for data
+			for (var i = 0; i < rowCount; i++) {
+				var dataRow = $("<tr>", {
+					"class": "table-success"
+				}).appendTo(pTable);
+				
+				// header for row
+				$("<th>", {
+					"class": "row"
+				}).appendTo(dataRow).html(json_data[i][Object.keys(json_data[0])[0]]);
+				console.log('ID: ' + json_data[i][Object.keys(json_data[0])[0]]);
+				
+				for (var j = 1; j < colCount; j++) {
+					$("<td>", {
+						"class": "tdClass"
+					}).appendTo(dataRow).html(json_data[i][Object.keys(json_data[0])[j]]);
+				}
+				
+				// add Edit button to the end of table row
+				$("<button>", {
+					"type": "button",
+					"class": "btn btn-primary"
+				}).appendTo(dataRow).html('Edit');
+				
+				// add Delete button to the end of table row
+				$("<button>", {
+					"type": "button",
+					"class": "btn btn-danger"
+				}).appendTo(dataRow).html('Delete');
+			}
+			// end data Loop
+			
+			
+		});
+		
+	});
 
     $("a").click(function(event) {
         event.preventDefault();
@@ -45,7 +328,6 @@ $(function() {
     /*var obj = $('section form p:nth-child(3)');
     obj.append( "<span> - 2nd!</span>" );*/
     //console.log(obj);
-    // comment
 
     $('#get-data').click(function () {
         //alert( "Handler for .click() called." );

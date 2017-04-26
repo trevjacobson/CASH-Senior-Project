@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/console.css">
+    <link rel="stylesheet" href="../assets/jquery-toggles-master/css/toggles.css">
+    <link rel="stylesheet" href="../assets/jquery-toggles-master/css/themes/toggles-modern.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <!--script src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -16,7 +18,6 @@
     <script src="../assets/js/charts.js"></script>
     <script src="../assets/js/script.js"></script>
     <script src="../assets/js/google_api.js"></script>
-    <script src="../assets/js/nrel.js"></script>
 </head>
 <style>
     .switch {
@@ -88,7 +89,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <form class="navbar-form navbar-right">
-                <button type="submit" class="btn btn-success">Profiles</button>
+                <button id="db-profiles" type="submit" class="btn btn-success">Profiles</button>
                 <button type="submit" class="btn btn-success">Settings</button>
             </form>
         </div><!--/.navbar-collapse -->
@@ -103,6 +104,7 @@
         <p>CASH: The next best thing</p>
     </div>
 </div>
+
 <!--h1 style="margin:0; padding:5pxbackground-color:#333; color:#fff;">
     Welcome to C.A.S.H   >(camera here)
 </h1-->
@@ -123,48 +125,33 @@
             <h3>Choose Alarm settings</h3>
             <div class="row">
                 <div class="col-md-3 col-sm-4">
-                    <label for="fd">Front door: </label>
-                    <label for="fd">Off</label>
-                    <label class="switch">
-                        <input type="checkbox" checked>
-                        <div class="slider round"></div>
+					<label for="fd">Front Door: </label>
+					<label class="switch">
+					<div class="toggles toggle-modern toggles-fd" data-toggle-on="true" data-toggle-height="35" data-toggle-width="75"></div>
                     </label>
-                    <label for="fd">On</label>
-                    <p></p>
                 </div>
 
                 <div class="col-md-3 col-sm-4">
-                    <label for="bd">Back door: </label>
-                   <label for="fd">Off</label>
-                    <label class="switch">
-                        <input type="checkbox" checked>
-                        <div class="slider round"></div>
+					<label for="fd">Light 1: </label>
+					<label class="switch">
+					<div class="toggles toggle-modern toggles-l1" data-toggle-on="true" data-toggle-height="35" data-toggle-width="75"></div>
                     </label>
-                    <label for="fd">On</label>
-                    <p></p>
-                 </div>
-
-                <div class="col-md-3 col-sm-4">
-                   <label for="wd">Window: </label>
-                    <label for="fd">Off</label>
-                    <label class="switch">
-                        <input type="checkbox" checked>
-                        <div class="slider round"></div>
-                    </label>
-                    <label for="fd">On</label>
-                    <p></p>
                 </div>
 
                 <div class="col-md-3 col-sm-4">
-                    <label for="ms">Motion sensor: </label>
-                    <label for="fd">Off</label>
-                    <label class="switch">
-                        <input type="checkbox" checked>
-                        <div class="slider round"></div>
+					<label for="fd">Light 2: </label>
+					<label class="switch">
+					<div class="toggles toggle-modern toggles-l2" data-toggle-on="true" data-toggle-height="35" data-toggle-width="75"></div>
                     </label>
-                    <label for="fd">On</label>
-                    <p></p>
                 </div>
+
+                <div class="col-md-3 col-sm-4">
+					<label for="fd">Light 3: </label>
+					<label class="switch">
+					<div class="toggles toggle-modern toggles-l3" data-toggle-on="true" data-toggle-height="35" data-toggle-width="75"></div>
+                    </label>
+                </div>
+
             </div>
         </div>
 
@@ -175,10 +162,8 @@
     <section>
         <form>
             <div id="forcast">
-                <h1>Current Weather <h3></h3></h1>
-		  
+                <h1>Current Weather <h3><span id="weathertime"></span></h3></h1>
             </div>
-		<div id="weathertime"></div>  <div id="kwh"></div>
             <h3>Latitude:  <span id="latti"></span> Longitide:  <span id="longi"></span></h3>
             <div class="container-fluid row">
                 <!-- Weather Indoors -->
@@ -197,111 +182,24 @@
                     </br>
                     <p>Pressure Outside: <span id="press"> </span> </p>
                     </br>
-                    <p>Humidity Outside: <span id="humo"> </span></p>
-	            </div>
-	 <div class="col-xs-4 col-md-4 container rcorners3">
-	            <p>Residential KWH: <span id="resid"></span> </p>
-	         </br>
-                 <p>Commercial KWH: <span id="comc"></span></p>
-	         </br>
-                 <p>Industrial KWH <span id="ind"></span></p>
+                    <p>Humidity Outside: <span id="humi"> </span></p>
                 </div>
-                <!--KWH-->
-                
                 <div class="col-xs-12 col-md-6" id="container-graph" style="min-width: 250px; height: 300px; margin: 0 auto"></div>
-    
-    
-     <script>
-		
-                if (navigator.geolocation) {
-				
-                    navigator.geolocation.getCurrentPosition(showPosition);
-						}
-		
-                else {
-                    alert("Geolocation is not supported by this browser");
-                }
-				
-                <!--code from https://www.youtube.com/watch?v=vw7MXBnScVk-->
-                
-                function showPosition(position) {
-				
-			
-				var latti=position.coords.latitude;
-				latti=latti.toPrecision(5);
-				var longi= position.coords.longitude;
-				
-				longi=longi.toPrecision(6);
-				document.getElementById("latti").innerHTML=latti
-				document.getElementById("longi").innerHTML=longi
-			var weathertime=new XMLHttpRequest();
-			weathertime.open("GET", "http://api.wunderground.com/api/b163089817d8ac3b/forecast/geolookup/conditions/q/"+latti+","+longi+".json", false);
-			weathertime.send(null);
-			var r = JSON.parse(weathertime.response);
-			var weathertime = "Current location: " +r.current_observation.display_location.full + "<br />";
-			var temp=r.current_observation.temperature_string + "<br />";
-			var wind = r.current_observation.wind_string + "<br / >";
-			var press = r.current_observation.pressure_in + "<br / >";
-			var humi = r.current_observation.relative_humidity + "<br / >";
-			var humo = r.current_observation.relative_humidity + "<br / >";
-			
-			var altit = r.current_observation.observation_location.elevation;
-                if(altit<0){var altit = r.current_observation.observation_location.elevation + " below sea level<br / >";}	
-				else{var altit = r.current_observation.observation_location.elevation+ " above sea level<br / >";}
-			document.getElementById("weathertime").innerHTML = weathertime;
-			document.getElementById("temp").innerHTML = temp;
-			document.getElementById("wind").innerHTML = wind;
-			document.getElementById("press").innerHTML = press;
-			document.getElementById("humi").innerHTML = humi;
-			document.getElementById("humo").innerHTML = humi;
-			document.getElementById("altit").innerHTML = altit;
-			
-			<!--nrel api=8pvz4NoEeIyNMVOTGI7u3BDh3gL7jryUfSkAU2ZV-->
-			var kwh=new XMLHttpRequest();
-			kwh.open("GET", "http://developer.nrel.gov/api/utility_rates/v3.json?api_key=8pvz4NoEeIyNMVOTGI7u3BDh3gL7jryUfSkAU2ZV&lat="+latti+"&lon="+longi+"", false);
-			
-			kwh.send(null);
-			var k = JSON.parse(kwh.response);
-			var resid=k.outputs.residential+ "<br />";
-			var comc=k.outputs.commercial+ "<br />";
-			var ind=k.outputs.industrial+ "<br />";
-			document.getElementById("resid").innerHTML = resid;
-			document.getElementById("comc").innerHTML = comc;
-			document.getElementById("ind").innerHTML = ind;
-                };
-                
-            </script>
             </div>
 
         </form>
     </section>
 </div>
 
-<div class="container-fluid" id="container">
 
 
-    <section>
-        <form>
-
-            <!--<div id="forecast">
-                <h1>Current Weather <span id="location"> </span></h1>
-                <div id="imgdiv">
-                    <img id="img" src=""/>
-                </div>
-
-            </div>-->
-            <div id="get-data">
-                Click Here
-            </div>
-            <div id="change-div">
-                Change Div
-            </div>
-
-
-        </form>
-    </section>
-
-</div><!--container end HERE!!!!!!!!-->
+<!--<div id="get-data">
+	Click Here
+</div>
+<div id="change-div">
+	Change Div
+</div>-->
+</br>
 <button id="show-img" type="button" class="btn btn-default">Show Camera</button>
 
 <div id="myModal" class="modal fade" aria-labelledby="my-modalLabel" aria-hidden="true" tabindex="-1" role="dialog">
@@ -316,7 +214,8 @@
 </div>
 </div>
 
-<div class="component-profile">
+
+<div class="component-profile container-fluid">
 
 </div>
 
@@ -332,6 +231,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../assets/js/jquery.min.js"><\/script>')</script>
 <script src="../assets/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="../assets/jquery-toggles-master/toggles.min.js"></script>
 </body>
 
 <!--script type="text/javascript" src="../assets/css/bootstrap-3.3.7-dist/js/bootstrap.js"></script-->
