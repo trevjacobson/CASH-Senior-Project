@@ -1,13 +1,31 @@
 import Adafruit_BME280
+import os
+import json
 
+PiWeather = os.path.abspath("PiWeather.txt")
 
 def readWeather(sensor):
     degrees = sensor.read_temperature()
     pascals = sensor.read_pressure()
     hectopascals = pascals / 100
     humidity = sensor.read_humidity()
-    altitude = (1-(hectopascals/1013.25)**0.190284)*145366.45
-    print "Temp      = {0:0.3f} deg C".format(degrees)
-    print "Pressure  = {0:0.2f} hPa".format(hectopascals)
-    print "Humidity  = {0:0.2f} %".format(humidity)
-    print "Altitude  = {0:0.0f} ft".format(altitude)
+
+    j_obj = {};
+    j_obj['module'] = "weather"
+    j_obj['temp'] = degrees
+    j_obj['pressure'] = hectopascals
+    j_obj['humidity'] = humidity
+
+    output = json.dumps(j_obj)
+
+    file_obj = open(PiWeather, "w")
+    file_obj.truncate()
+    file_obj.write(output)
+    file_obj.close()
+
+    print("Temp      = {0:0.3f} deg C".format(degrees))
+    print("Pressure  = {0:0.2f} hPa".format(hectopascals))
+    print("Humidity  = {0:0.2f} %".format(humidity))
+
+
+readWeather("me")

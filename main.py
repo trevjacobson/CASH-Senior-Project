@@ -31,6 +31,8 @@ led2.setLight(40)
 led3.setLight(1)
 
 
+
+
 #initialize BME280 weather sensor
 sensor = Adafruit_BME280.BME280(mode=Adafruit_BME280.BME280_OSAMPLE_8)
 test_BME280.readWeather(sensor)
