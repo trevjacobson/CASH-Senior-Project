@@ -24,7 +24,7 @@ $(function() {
 				url: "../data/request.php",
 				data: {
 					'writeRequest': 'alarm',
-					'requestValue' : 'ON'
+					'writeValue' : 'on'
 				},
 				type: "POST",
 				context: document.body
@@ -44,7 +44,7 @@ $(function() {
 				url: "../data/request.php",
 				data: {
 					'writeRequest': 'alarm',
-					'requestValue' : 'OFF'
+					'writeValue' : 'on'
 				},
 				type: "POST",
 				context: document.body
@@ -68,8 +68,9 @@ $(function() {
 				 * */
 				url: "../data/request.php",
 				data: {
-					'writeRequest': 'Light1',
-					'requestValue' : '100'
+					'writeRequest': 'Light',
+					'id' : '1',
+					'writeValue' : '100'
 				},
 				type: "POST",
 				context: document.body
@@ -88,8 +89,9 @@ $(function() {
 				 * */
 				url: "../data/request.php",
 				data: {
-					'writeRequest': 'Light1',
-					'requestValue' : '0'
+					'writeRequest': 'Light',
+					'id' : '1',
+					'writeValue' : '0'
 				},
 				type: "POST",
 				context: document.body
@@ -113,8 +115,9 @@ $(function() {
 				 * */
 				url: "../data/request.php",
 				data: {
-					'writeRequest': 'Light2',
-					'requestValue' : '100'
+					'writeRequest': 'Light',
+					'id' : '2',
+					'writeValue' : '100'
 				},
 				type: "POST",
 				context: document.body
@@ -133,8 +136,9 @@ $(function() {
 				 * */
 				url: "../data/request.php",
 				data: {
-					'writeRequest': 'Light2',
-					'requestValue' : '0'
+					'writeRequest': 'Light',
+					'id' : '2',
+					'writeValue' : '0'
 				},
 				type: "POST",
 				context: document.body
@@ -158,8 +162,9 @@ $(function() {
 				 * */
 				url: "../data/request.php",
 				data: {
-					'writeRequest': 'Light3',
-					'requestValue' : '100'
+					'writeRequest': 'Light',
+					'id' : '3',
+					'writeValue' : '100'
 				},
 				type: "POST",
 				context: document.body
@@ -178,8 +183,9 @@ $(function() {
 				 * */
 				url: "../data/request.php",
 				data: {
-					'writeRequest': 'Light3',
-					'requestValue' : '0'
+					'writeRequest': 'Light',
+					'id' : '3',
+					'writeValue' : '0'
 				},
 				type: "POST",
 				context: document.body
