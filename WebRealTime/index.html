@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Welocome to CASH</title>
+    <title>Welcome to CASH</title>
     <meta name="description" content="Firebase LogIn">
     <meta name="Brian" content="Firebase Live Data">
 
@@ -75,7 +75,11 @@
         </form>
     </div>
     <div>
-        <a href="components/CASH.html">Go To CASH console</a>
+        <script>
+            var url="components/CASH.html#omgitsworking";
+            document.write('<a href="' + url + '">Go To CASH console</a>');
+            document.getElementById("url").innerHTML = url;
+        </script>
     </div>
 </div>
 </body>
