@@ -2,200 +2,247 @@
  * Created by Brian on 3/25/2017.
  */
 $(function() {
-	
-	///////////////////////////////////////
-	/// Functionality for Toggles
-	///
-	///////////////////////////////////////
-	// create all toggles
-	$('.toggles').toggles();
-	
-	// Getting notified of changes on toggles, and the new state: Front Door
-	$('.toggles-fd').on('toggle', function(e, active) {
-		// when switched on
-		if (active) {
-		console.log('Toggle is now ON!');
-		
-			// start ajax call
-			$.ajax({
+
+    ///////////////////////////////////////
+    /// Functionality for Toggles
+    ///
+    ///////////////////////////////////////
+    // create all toggles
+    $('.toggles').toggles();
+
+    // Getting notified of changes on toggles, and the new state: Front Door
+    $('.toggles-fd').on('toggle', function(e, active) {
+        // when switched on
+        if (active) {
+            console.log('Toggle is now ON!');
+
+            // start ajax call
+            $.ajax({
 				/* *
 				 * URL: Place file path for php
 				 * */
-				url: "../data/request.php",
-				data: {
-					'writeRequest': 'alarm',
-					'writeValue' : 'on'
-				},
-				type: "POST",
-				context: document.body
-			}).success(function(msg) {
-				console.log('wow ' + msg);
-			});
-			// end ajax call
-			
-		} else {
-			console.log('Toggle is now OFF!');
-		
-			// start ajax call
-			$.ajax({
+                url: "../script/json_rw.php",
+                data: {
+                    'writeRequest': 'alarm',
+                    'writeValue' : 'on'
+                },
+                type: "POST",
+                context: document.body
+            }).success(function(msg) {
+                console.log('wow ' + msg);
+            });
+            // end ajax call
+
+        } else {
+            console.log('Toggle is now OFF!');
+
+            // start ajax call
+            $.ajax({
 				/* *
 				 * URL: Place file path for php
 				 * */
-				url: "../data/request.php",
-				data: {
-					'writeRequest': 'alarm',
-					'writeValue' : 'on'
-				},
-				type: "POST",
-				context: document.body
-			}).success(function(msg) {
-				console.log('wow ' + msg);
-			});
-			// end ajax call
-		}
-	});
-	
-	// Getting notified of changes on toggles, and the new state: Light 1
-	$('.toggles-l1').on('toggle', function(e, active) {
-		// when switched on
-		if (active) {
-		console.log('Toggle is now ON!');
-		
-			// start ajax call
-			$.ajax({
+                url: "../script/json_rw.php",
+                data: {
+                    'writeRequest': 'alarm',
+                    'writeValue' : 'off'
+                },
+                type: "POST",
+                context: document.body
+            }).success(function(msg) {
+                console.log('wow ' + msg);
+            });
+            // end ajax call
+        }
+    });
+
+    // Getting notified of changes on toggles, and the new state: Light 1
+    $('.toggles-l1').on('toggle', function(e, active) {
+        // when switched on
+        if (active) {
+            console.log('Toggle is now ON!');
+
+            // start ajax call
+            $.ajax({
 				/* *
 				 * URL: Place file path for php
 				 * */
-				url: "../data/request.php",
-				data: {
-					'writeRequest': 'Light',
-					'id' : '1',
-					'writeValue' : '100'
-				},
-				type: "POST",
-				context: document.body
-			}).success(function(msg) {
-				console.log('wow ' + msg);
-			});
-			// end ajax call
-			
-		} else {
-			console.log('Toggle is now OFF!');
-		
-			// start ajax call
-			$.ajax({
+                url: "../script/json_rw.php",
+                data: {
+                    'writeRequest': 'light',
+                    'id' : '1',
+                    'writeValue' : '100'
+                },
+                type: "POST",
+                context: document.body
+            }).success(function(msg) {
+                console.log('wow ' + msg);
+            });
+            // end ajax call
+
+        } else {
+            console.log('Toggle is now OFF!');
+
+            // start ajax call
+            $.ajax({
 				/* *
 				 * URL: Place file path for php
 				 * */
-				url: "../data/request.php",
-				data: {
-					'writeRequest': 'Light',
-					'id' : '1',
-					'writeValue' : '0'
-				},
-				type: "POST",
-				context: document.body
-			}).success(function(msg) {
-				console.log('wow ' + msg);
-			});
-			// end ajax call
-		}
-	});
-	
-	// Getting notified of changes on toggles, and the new state: Light 2
-	$('.toggles-l2').on('toggle', function(e, active) {
-		// when switched on
-		if (active) {
-		console.log('Toggle is now ON!');
-		
-			// start ajax call
-			$.ajax({
+                url: "../script/json_rw.php",
+                data: {
+                    'writeRequest': 'light',
+                    'id' : '1',
+                    'writeValue' : '0'
+                },
+                type: "POST",
+                context: document.body
+            }).success(function(msg) {
+                console.log('wow ' + msg);
+            });
+            // end ajax call
+        }
+    });
+
+    // Getting notified of changes on toggles, and the new state: Light 2
+    $('.toggles-l2').on('toggle', function(e, active) {
+        // when switched on
+        if (active) {
+            console.log('Toggle is now ON!');
+
+            // start ajax call
+            $.ajax({
 				/* *
 				 * URL: Place file path for php
 				 * */
-				url: "../data/request.php",
-				data: {
-					'writeRequest': 'Light',
-					'id' : '2',
-					'writeValue' : '100'
-				},
-				type: "POST",
-				context: document.body
-			}).success(function(msg) {
-				console.log('wow ' + msg);
-			});
-			// end ajax call
-			
-		} else {
-			console.log('Toggle is now OFF!');
-		
-			// start ajax call
-			$.ajax({
+                url: "../script/json_rw.php",
+                data: {
+                    'writeRequest': 'Light',
+                    'id' : '2',
+                    'writeValue' : '100'
+                },
+                type: "POST",
+                context: document.body
+            }).success(function(msg) {
+                console.log('wow ' + msg);
+            });
+            // end ajax call
+
+        } else {
+            console.log('Toggle is now OFF!');
+
+            // start ajax call
+            $.ajax({
 				/* *
 				 * URL: Place file path for php
 				 * */
-				url: "../data/request.php",
-				data: {
-					'writeRequest': 'Light',
-					'id' : '2',
-					'writeValue' : '0'
-				},
-				type: "POST",
-				context: document.body
-			}).success(function(msg) {
-				console.log('wow ' + msg);
-			});
-			// end ajax call
-		}
-	});
-	
-	// Getting notified of changes on toggles, and the new state: Light 3
-	$('.toggles-l3').on('toggle', function(e, active) {
-		// when switched on
-		if (active) {
-		console.log('Toggle is now ON!');
-		
-			// start ajax call
-			$.ajax({
+                url: "../script/json_rw.php",
+                data: {
+                    'writeRequest': 'Light',
+                    'id' : '2',
+                    'writeValue' : '0'
+                },
+                type: "POST",
+                context: document.body
+            }).success(function(msg) {
+                console.log('wow ' + msg);
+            });
+            // end ajax call
+        }
+    });
+
+    // Getting notified of changes on toggles, and the new state: Light 3
+    $('.toggles-l3').on('toggle', function(e, active) {
+        // when switched on
+        if (active) {
+            console.log('Toggle is now ON!');
+
+            // start ajax call
+            $.ajax({
 				/* *
 				 * URL: Place file path for php
 				 * */
-				url: "../data/request.php",
-				data: {
-					'writeRequest': 'Light',
-					'id' : '3',
-					'writeValue' : '100'
-				},
-				type: "POST",
-				context: document.body
-			}).success(function(msg) {
-				console.log('wow ' + msg);
-			});
-			// end ajax call
-			
-		} else {
-			console.log('Toggle is now OFF!');
-		
-			// start ajax call
-			$.ajax({
+                url: "../script/json_rw.php",
+                data: {
+                    'writeRequest': 'Light',
+                    'id' : '3',
+                    'writeValue' : '100'
+                },
+                type: "POST",
+                context: document.body
+            }).success(function(msg) {
+                console.log('wow ' + msg);
+            });
+            // end ajax call
+
+        } else {
+            console.log('Toggle is now OFF!');
+
+            // start ajax call
+            $.ajax({
 				/* *
 				 * URL: Place file path for php
 				 * */
-				url: "../data/request.php",
-				data: {
-					'writeRequest': 'Light',
-					'id' : '3',
-					'writeValue' : '0'
-				},
-				type: "POST",
-				context: document.body
-			}).success(function(msg) {
-				console.log('wow ' + msg);
-			});
-			// end ajax call
-		}
-	});
-	
+                url: "../script/json_rw.php",
+                data: {
+                    'writeRequest': 'Light',
+                    'id' : '3',
+                    'writeValue' : '0'
+                },
+                type: "POST",
+                context: document.body
+            }).success(function(msg) {
+                console.log('wow ' + msg);
+            });
+            // end ajax call
+        }
+    });
+
+    // test ajax call for weather
+	/*
+    $.ajax({
+
+        url: "../script/json_rw.php",
+        data: {
+            'readRequest': 'weather'
+        },
+        type: "POST",
+        context: document.body
+    }).success(function(msg) {
+        console.log('wow ' + msg);
+        var obj = JSON.parse(msg);
+        console.log(obj);
+    });
+	*/
+
+	//////////////////////////////////////
+	// Functionality to Read Weather Data
+	// from modules
+	//////////////////////////////////////
+
+    setInterval(function(){
+        $.ajax({
+			/* *
+			 * URL: Place file path for php
+			 * */
+            url: "../script/json_rw.php",
+            data: {
+                'readRequest': 'weather'
+            },
+            type: "POST",
+            context: document.body
+        }).success(function(msg) {
+            //console.log('wow ' + msg);
+            var obj = JSON.parse(msg);
+
+            console.log(obj);
+
+            // set the temp
+            $('#tempi').html(obj["temp"]);
+            $('#presi').html(obj["pressure"]);
+            $('#humi').html(obj["humidity"]);
+        });
+	}, 5000);
+	// $('#tempi').html('temp here');
+
     // current blank profiles
     var profiles;
 
