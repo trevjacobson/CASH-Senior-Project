@@ -2,17 +2,28 @@ import RPi.GPIO as GPIO
 import os
 import pygame
 import json
+import time
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.IN, GPIO.PUD_UP)
 
-PiAlarm = os.path.abspath("PiAlarm.txt")
-webAlarm = os.path.abspath("WebAlarm.txt")
+soundObject = ""
+
+def startSound():
+	pygame.mixer.init()
+	soundObject = pygame.mixer.Sound("houseAlarm.wav")
+	soundObject.play()
+
+def stopSound():
+	pygame.mixer.stop()
+	
+PiAlarm = "/var/www/html/cash_json/PiAlarm.json"
+webAlarm = "/var/www/html/cash_json/WebAlarm.json"
 #read only class to detect the state of the door switch
 class doorSensor(object):
 
     def __init__(self):
-        self.alarm = "off"
+        self.alarm = "on"
         self.door = 0
 
     def setAlarm(self, alarm):
@@ -20,23 +31,17 @@ class doorSensor(object):
 
 
     def readDoorSensor(self, doorGPIO):
-        if self.alarm == "on" & self.door == 1:
-            self.alarm == "triggered"
-            pygame.mixer.init()
-            pygame.mixer.music.load("houseAlarm.wav")
-            pygame.mixer.music.play()
-            while pygame.mixer.music.get_busy() == True:
-                continue
+        if self.alarm == "on" and self.door == 1 and not pygame.mixer.get_busy() :
+            self.alarm = "triggered"
+            startSound()
 
         if GPIO.input(doorGPIO):
-            self.door = 1;
-            return 1;
+            self.door = 1
         else:
-            if self.alarm == "on" :
-                self.door = 1;
+            if self.alarm == "on" and self.door == 1 :
+                self.door = 1
             else:
-                self.door = 0;
-            return 0;
+                self.door = 0
 
     def writeAlarm(self):
         j_obj = {};
@@ -54,15 +59,10 @@ class doorSensor(object):
         file_content = file_obj.read()
         j_obj = json.loads(file_content)
         state = j_obj['state']
-        if self.alarm == "triggered" & state == "off":
-            pygame.mixer.stop()
-        self.alarm = state
-
-
-
-
-
-
-
-
-
+        if state == "off" and pygame.mixer.get_busy():
+			stopSound()
+        if self.alarm == "triggered" and state == "off":
+			self.alarm = state
+        elif state == "on" and self.alarm != "triggered":
+            self.alarm = state
+			

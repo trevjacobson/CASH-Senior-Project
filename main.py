@@ -5,7 +5,8 @@ import LED_Dimming #LED class contol module
 import Door_Switch #doorsensor control module
 import test_BME280 #function to read BME280
 import threading
-import Camera
+import pygame
+#import Camera
 
 GPIO.setmode(GPIO.BCM)  # BCM = nclumbers in green box next to GPIO bins
 
@@ -24,7 +25,7 @@ led2 = LED_Dimming.LED(24)    #green led
 led3 = LED_Dimming.LED(25)    #red led
 
 #initialize BME280 weather sensor
-sensor = Adafruit_BME280.BME280(mode=Adafruit_BME280.BME280_OSAMPLE_8)
+sensor = "weather sensor"
 test_BME280.readWeather(sensor)
 
 #initialize the door sensor to read gpio 17
@@ -35,19 +36,20 @@ doorSensor = Door_Switch.doorSensor()
 
 while True:
 
-    Door_Switch.doorSensor.writeAlarm()
-    Door_Switch.doorSensor.readDoorSensor(17)
-    Door_Switch.doorSensor.readAlarm()
+	doorSensor.writeAlarm()
+	doorSensor.readDoorSensor(17)
+	doorSensor.readAlarm()
 
-    test_BME280.readWeather(sensor)
+	test_BME280.readWeather(sensor)
 
-    LED_Dimming.writeLed(led1,led2,led3)
-    LED_Dimming.readLed(led1,led2,led3)
+	LED_Dimming.writeLed(led1,led2,led3)
+	LED_Dimming.readLed(led1,led2,led3)
 
-    if doorSensor.readDoorSensor(17):
-        print("switch is open")
-    else:
-        print("switch is closed")
+#    if doorSensor.readDoorSensor(17):
+#        print("switch is open")
+#    else:
+#        print("switch is closed")
+	
 
 time.sleep(5)
 GPIO.cleanup()

@@ -2,13 +2,13 @@ import RPi.GPIO as GPIO  # GPIO Library
 import os
 import json
 
-PiLed1 = os.path.abspath("PiLed1.txt")
-PiLed2 = os.path.abspath("PiLed2.txt")
-PiLed3 = os.path.abspath("PiLed3.txt")
+PiLed1 = "/var/www/html/cash_json/PiLed1.txt"
+PiLed2 = "/var/www/html/cash_json/PiLed2.txt"
+PiLed3 = "/var/www/html/cash_json/PiLed3.txt"
 
-WebLed1 = os.path.abspath("WebLed1.txt")
-WebLed2 = os.path.abspath("WebLed2.txt")
-WebLed3 = os.path.abspath("WebLed3.txt")
+WebLed1 = "/var/www/html/cash_json/WebLights1.json"
+WebLed2 = "/var/www/html/cash_json/WebLights2.json"
+WebLed3 = "/var/www/html/cash_json/WebLights3.json"
 
 class LED(object):
 
@@ -64,20 +64,24 @@ def writeLed(light1, light2, light3):
 def readLed(light1, light2, light3):
     file_obj1 = open(WebLed1)
     input = file_obj1.read()
+    
     if input != "":
-        light1.setLight(input['power'])
+		j_obj1 = json.loads(input)
+		light1.setLight(float(j_obj1['power']))
     file_obj1.close()
 
     file_obj2 = open(WebLed2)
     input = file_obj2.read()
     if input != "":
-        light2.setLight(input['power'])
+		j_obj2 = json.loads(input)
+		light2.setLight(float(j_obj2['power']))
     file_obj2.close()
 
     file_obj3 = open(WebLed3)
     input = file_obj3.read()
     if input != "":
-        light3.setLight(input['power'])
+		j_obj3 = json.loads(input)
+		light3.setLight(float(j_obj3['power']))
     file_obj3.close()
 
 
