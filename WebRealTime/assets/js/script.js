@@ -218,6 +218,7 @@ $(function() {
 	// from modules
 	//////////////////////////////////////
 
+	// read weather
     setInterval(function(){
         $.ajax({
 			/* *
@@ -241,6 +242,25 @@ $(function() {
             $('#humi').html(obj["humidity"]);
         });
 	}, 5000);
+
+    // read alarm
+	setInterval(function(){
+		$.ajax({
+			// url
+			url: "../script/json_rw.php",
+			data: {
+				'readRequest' : 'alarm'
+			},
+			type: "POST",
+			context: document.body
+		}).success(function(msg) {
+			var obj = JSON.pars(msg);
+
+			console.log(obj);
+			console.log( 'module is: ' + obj["module"] + ' state is: ' + obj["state"]);
+		});
+	});
+
 	// $('#tempi').html('temp here');
 
     // current blank profiles
