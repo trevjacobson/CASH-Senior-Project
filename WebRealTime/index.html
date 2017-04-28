@@ -67,9 +67,9 @@
             <p class="message">Already registered? <a href="#">Sign In</a></p>
         </form>
         <form class="login-form">
-            <input type="text" placeholder="username"/>
-            <input type="password" placeholder="password"/>
-            <button onclick="google_login_in()">login</button>
+            <input id="text" placeholder="email"/>
+            <input id="password" placeholder="password"/>
+            <button id="loginClk" onclick="google_login_in()">login</button>
             <button onclick="log_out()">Logout</button>
             <p class="message">Not registered? <a href="#">Create an account</a></p>
         </form>
@@ -78,7 +78,7 @@
         <script>
             var url="components/CASH.html#omgitsworking";
             document.write('<a href="' + url + '">Go To CASH console</a>');
-            document.getElementById("url").innerHTML = url;
+            // document.getElementById("url").innerHTML = url;
         </script>
     </div>
 </div>
@@ -87,15 +87,7 @@
 
 <script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
 <script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyCk_P9M-wREfr100p9OMafbiVYripukhl8",
-        authDomain: "cash-login.firebaseapp.com",
-        databaseURL: "https://cash-login.firebaseio.com",
-        storageBucket: "cash-login.appspot.com",
-        messagingSenderId: "288160664366"
-    };
-    firebase.initializeApp(config);
+//fb script here
 </script>
 <script src="assets/js/firebase.js"></script>
 
