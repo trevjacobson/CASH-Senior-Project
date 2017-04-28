@@ -18,9 +18,9 @@ $(function() {
 
             // start ajax call
             $.ajax({
-				/* *
-				 * URL: Place file path for php
-				 * */
+                /* *
+                 * URL: Place file path for php
+                 * */
                 url: "../script/json_rw.php",
                 data: {
                     'writeRequest': 'alarm',
@@ -38,9 +38,9 @@ $(function() {
 
             // start ajax call
             $.ajax({
-				/* *
-				 * URL: Place file path for php
-				 * */
+                /* *
+                 * URL: Place file path for php
+                 * */
                 url: "../script/json_rw.php",
                 data: {
                     'writeRequest': 'alarm',
@@ -50,6 +50,11 @@ $(function() {
                 context: document.body
             }).success(function(msg) {
                 console.log('wow ' + msg);
+                // check if triggered message appeared
+                if($('.fd-triggered').length){
+                    console.log('fd-triggered does exist');
+                    $('.fd-triggered').remove();
+                }
             });
             // end ajax call
         }
@@ -63,9 +68,9 @@ $(function() {
 
             // start ajax call
             $.ajax({
-				/* *
-				 * URL: Place file path for php
-				 * */
+                /* *
+                 * URL: Place file path for php
+                 * */
                 url: "../script/json_rw.php",
                 data: {
                     'writeRequest': 'light',
@@ -84,9 +89,9 @@ $(function() {
 
             // start ajax call
             $.ajax({
-				/* *
-				 * URL: Place file path for php
-				 * */
+                /* *
+                 * URL: Place file path for php
+                 * */
                 url: "../script/json_rw.php",
                 data: {
                     'writeRequest': 'light',
@@ -110,9 +115,9 @@ $(function() {
 
             // start ajax call
             $.ajax({
-				/* *
-				 * URL: Place file path for php
-				 * */
+                /* *
+                 * URL: Place file path for php
+                 * */
                 url: "../script/json_rw.php",
                 data: {
                     'writeRequest': 'light',
@@ -131,9 +136,9 @@ $(function() {
 
             // start ajax call
             $.ajax({
-				/* *
-				 * URL: Place file path for php
-				 * */
+                /* *
+                 * URL: Place file path for php
+                 * */
                 url: "../script/json_rw.php",
                 data: {
                     'writeRequest': 'light',
@@ -157,9 +162,9 @@ $(function() {
 
             // start ajax call
             $.ajax({
-				/* *
-				 * URL: Place file path for php
-				 * */
+                /* *
+                 * URL: Place file path for php
+                 * */
                 url: "../script/json_rw.php",
                 data: {
                     'writeRequest': 'light',
@@ -178,9 +183,9 @@ $(function() {
 
             // start ajax call
             $.ajax({
-				/* *
-				 * URL: Place file path for php
-				 * */
+                /* *
+                 * URL: Place file path for php
+                 * */
                 url: "../script/json_rw.php",
                 data: {
                     'writeRequest': 'light',
@@ -204,9 +209,9 @@ $(function() {
 	// read weather
     setInterval(function(){
         $.ajax({
-			/* *
-			 * URL: Place file path for php
-			 * */
+            /* *
+             * URL: Place file path for php
+             * */
             url: "../script/json_rw.php",
             data: {
                 'readRequest': 'weather'
@@ -224,7 +229,12 @@ $(function() {
             $('#presi').html(obj["pressure"]);
             $('#humi').html(obj["humidity"]);
         });
-	}, 5000);
+    }, 5000);
+
+    /////////////////////////////////////////
+    // Functionality to Read if Alarm is
+    // triggered
+    /////////////////////////////////////////
 
     // read alarm
 	setInterval(function(){
@@ -248,7 +258,6 @@ $(function() {
                 	"class" : "fd-triggered"
 				}).appendTo($('.toggles-fd')).html('TRIGGERED');
 			}
-
 		});
 	}, 1000);
 
@@ -261,12 +270,19 @@ $(function() {
 	*/
 
 
+	///////////////////////////////////
+    // Commented code is for checking
+    // if alarm is triggered.
+    //////////////////////////////////
 	// set triggered html
+    /*
     $("<code>", {
         "class" : "fd-triggered"
     }).appendTo($('.toggles-fd')).html('TRIGGERED');
+    */
 
     // check in 5 seconds to see if the Triggered is set
+    /*
     setInterval(function(){
         if($('.fd-triggered').length){
             console.log('fd-triggered does exist');
@@ -276,6 +292,8 @@ $(function() {
 
         console.log('removed');
 	}, 5000);
+	*/
+    /// end check alarm triggered code
 
     // current blank profiles
     var profiles;
