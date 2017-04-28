@@ -115,7 +115,7 @@ $(function() {
 				 * */
                 url: "../script/json_rw.php",
                 data: {
-                    'writeRequest': 'Light',
+                    'writeRequest': 'light',
                     'id' : '2',
                     'writeValue' : '100'
                 },
@@ -136,7 +136,7 @@ $(function() {
 				 * */
                 url: "../script/json_rw.php",
                 data: {
-                    'writeRequest': 'Light',
+                    'writeRequest': 'light',
                     'id' : '2',
                     'writeValue' : '0'
                 },
@@ -162,7 +162,7 @@ $(function() {
 				 * */
                 url: "../script/json_rw.php",
                 data: {
-                    'writeRequest': 'Light',
+                    'writeRequest': 'light',
                     'id' : '3',
                     'writeValue' : '100'
                 },
@@ -183,7 +183,7 @@ $(function() {
 				 * */
                 url: "../script/json_rw.php",
                 data: {
-                    'writeRequest': 'Light',
+                    'writeRequest': 'light',
                     'id' : '3',
                     'writeValue' : '0'
                 },
@@ -195,23 +195,6 @@ $(function() {
             // end ajax call
         }
     });
-
-    // test ajax call for weather
-	/*
-    $.ajax({
-
-        url: "../script/json_rw.php",
-        data: {
-            'readRequest': 'weather'
-        },
-        type: "POST",
-        context: document.body
-    }).success(function(msg) {
-        console.log('wow ' + msg);
-        var obj = JSON.parse(msg);
-        console.log(obj);
-    });
-	*/
 
 	//////////////////////////////////////
 	// Functionality to Read Weather Data
@@ -254,14 +237,45 @@ $(function() {
 			type: "POST",
 			context: document.body
 		}).success(function(msg) {
+			// states from alarm: on, off, triggered
 			var obj = JSON.parse(msg);
 
 			console.log(obj);
 			console.log( 'module is: ' + obj["module"] + ' state is: ' + obj["state"]);
+
+			if(obj["state"] === "triggered") {
+                $("<code>", {
+                	"class" : "fd-triggered"
+				}).appendTo($('.toggles-fd')).html('TRIGGERED');
+			}
+
 		});
 	}, 1000);
 
-	// $('#tempi').html('temp here');
+	/*
+	if($('.fd-triggered').length){
+		console.log('fd-triggered does exist');
+	} else {
+		console.log('fd-triggered doesn\'t exist');
+	}
+	*/
+
+
+	// set triggered html
+    $("<code>", {
+        "class" : "fd-triggered"
+    }).appendTo($('.toggles-fd')).html('TRIGGERED');
+
+    // check in 5 seconds to see if the Triggered is set
+    setInterval(function(){
+        if($('.fd-triggered').length){
+            console.log('fd-triggered does exist');
+        }
+
+        $('.fd-triggered').remove();
+
+        console.log('removed');
+	}, 5000);
 
     // current blank profiles
     var profiles;
