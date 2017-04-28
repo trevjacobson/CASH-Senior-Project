@@ -254,12 +254,12 @@ $(function() {
 			type: "POST",
 			context: document.body
 		}).success(function(msg) {
-			var obj = JSON.pars(msg);
+			var obj = JSON.parse(msg);
 
 			console.log(obj);
 			console.log( 'module is: ' + obj["module"] + ' state is: ' + obj["state"]);
 		});
-	});
+	}, 1000);
 
 	// $('#tempi').html('temp here');
 
