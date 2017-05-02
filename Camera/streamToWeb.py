@@ -120,7 +120,7 @@ def recordMotion():
                 recordingState = True
                 prevState = "rec"
             # wait for low risk of collision, will collide without wait
-            time.sleep(1)
+            time.sleep(.5)
 
         with open(camera_file) as f_obj:
             file_content = f_obj.read()
@@ -135,6 +135,7 @@ def recordMotion():
             recordingState = False
             tconv = threading.Thread(target=convertToMP4(timeFileName))
             tconv.start()
+        time.sleep(.5)
 
 # streaming function
 with picamera.PiCamera() as camera:
