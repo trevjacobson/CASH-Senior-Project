@@ -5,7 +5,7 @@ import socketserver
 from threading import Condition
 from http import server
 import json
-import time
+from time import gmtime,strftime
 import threading
 from subprocess import call
 
@@ -115,7 +115,7 @@ def recordMotion():
                 cameraState = j_obj['state']
                 f_obj.close()
             if recordingState == False:
-                timeFileName = time.strftime("%d,%b,%y-%H:%M:%S", time.localtime())
+                timeFileName = ("%Y%m%d%H%M%S", gmtime())
                 camera.start_recording(timeFileName + '.h264', format='h264', splitter_port=2)
                 recordingState = True
                 prevState = "rec"
