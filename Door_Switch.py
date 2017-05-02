@@ -19,6 +19,7 @@ def stopSound():
 	
 PiAlarm = "/var/www/html/cash_json/PiAlarm.json"
 webAlarm = "/var/www/html/cash_json/WebAlarm.json"
+camera_file = "/var/www/html/cash_json/WebAlarm.json"
 #read only class to detect the state of the door switch
 class doorSensor(object):
 
@@ -34,6 +35,16 @@ class doorSensor(object):
         if self.alarm == "on" and self.door == 1 and not pygame.mixer.get_busy() :
             self.alarm = "triggered"
             startSound()
+
+            j_obj = {};
+            j_obj['module'] = "camera"
+            j_obj['state'] = "rec"
+
+            output = json.dumps(j_obj)
+            file_obj = open(PiAlarm, "w")
+            file_obj.truncate()
+            file_obj.write(output)
+            file_obj.close()
 
         if GPIO.input(doorGPIO):
             self.door = 1
@@ -60,7 +71,18 @@ class doorSensor(object):
         j_obj = json.loads(file_content)
         state = j_obj['state']
         if state == "off" and pygame.mixer.get_busy():
-			stopSound()
+            stopSound()
+
+            j_obj = {};
+            j_obj['module'] = "camera"
+            j_obj['state'] = "off"
+
+            output = json.dumps(j_obj)
+            file_obj = open(PiAlarm, "w")
+            file_obj.truncate()
+            file_obj.write(output)
+            file_obj.close()
+
         if self.alarm == "triggered" and state == "off":
 			self.alarm = state
         elif state == "on" and self.alarm != "triggered":

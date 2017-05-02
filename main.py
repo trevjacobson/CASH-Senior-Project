@@ -6,7 +6,7 @@ import Door_Switch #doorsensor control module
 import test_BME280 #function to read BME280
 import threading
 import pygame
-#import Camera
+import Camera
 
 GPIO.setmode(GPIO.BCM)  # BCM = nclumbers in green box next to GPIO bins
 
@@ -31,8 +31,8 @@ test_BME280.readWeather(sensor)
 #initialize the door sensor to read gpio 17
 doorSensor = Door_Switch.doorSensor()
 
-#t = threading.Thread(target=Camera.mainCamera)
-#t.start()
+t = threading.Thread(target=Camera.streamToWeb)
+t.start()
 
 while True:
 

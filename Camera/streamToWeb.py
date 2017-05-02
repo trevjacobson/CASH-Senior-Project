@@ -95,40 +95,46 @@ def convertToMP4(timeFileName):
 # circular buffer (picamera spitter) in use for streaming
 # record on motion function
 def recordMotion():
-    testInput = "null"
-    filename = 'testJSON.json'
-    # quick check if system is exiting before initializing loop
-    with open(filename) as f_obj:
-        testInput = json.load(f_obj)
+    camera_file = '/var/www/html/cash_json/WebAlarm.json'
+    cameraState = ""
+    prevState = False
+    recordingState = False
+
+    with open(camera_file) as f_obj:
+        file_content = f_obj.read()
+        j_obj = json.loads(file_content)
+        cameraState = j_obj['state']
         f_obj.close()
 
-    while testInput != "exit":
-        # get json string for testInput
-        with open(filename) as f_obj:
-            testInput = json.load(f_obj)
+    while True:
+        while cameraState != "off":
+            # get json string for testInput
+            with open(camera_file) as f_obj:
+                file_content = f_obj.read()
+                j_obj = json.loads(file_content)
+                cameraState = j_obj['state']
+                f_obj.close()
+            if recordingState == False:
+                timeFileName = time.strftime("%d,%b,%y-%H:%M:%S", time.localtime())
+                camera.start_recording(timeFileName + '.h264', format='h264', splitter_port=2)
+                recordingState = True
+                prevState = "rec"
+            # wait for low risk of collision, will collide without wait
+            time.sleep(1)
+
+        with open(camera_file) as f_obj:
+            file_content = f_obj.read()
+            j_obj = json.loads(file_content)
+            cameraState = j_obj['state']
             f_obj.close()
 
-        if testInput == "rec":
-            timeFileName = time.strftime("%d,%b,%y-%H:%M:%S", time.localtime())
-            camera.start_recording(timeFileName + '.h264', format='h264', splitter_port=2)
-            time.sleep(10)
+
+        if prevState == "rec" and cameraState == "off":
             camera.stop_recording(splitter_port=2)
-
-            print("done recording")
-
-            # to be put under print ("done recording") on line ~109
+            prevState = "off"
+            recordingState = False
             tconv = threading.Thread(target=convertToMP4(timeFileName))
             tconv.start()
-
-            # set jason file to null for next motion event
-            testInput = "null"
-            filename = 'testJSON.json'
-            with open(filename, 'w') as f_obj:
-                json.dump(testInput, f_obj)
-                f_obj.close()
-        # wait for low risk of collision, will collide without wait
-        time.sleep(1)
-
 
 # streaming function
 with picamera.PiCamera() as camera:
