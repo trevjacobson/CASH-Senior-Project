@@ -42,6 +42,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         // User is signed in.
         console.log("User is signed In");
         user.providerData.forEach(function (profile) {
+			window.location.replace("components/CASH.html#omgitsworking");
             console.log("Sign-in provider: "+profile.providerId);
             console.log("  Provider-specific UID: "+profile.uid);
             console.log("  Name: "+profile.displayName);
