@@ -66,22 +66,22 @@ def readLed(light1, light2, light3):
     input = file_obj1.read()
     
     if input != "":
-		j_obj1 = json.loads(input)
-		light1.setLight(float(j_obj1['power']))
+        j_obj1 = json.loads(input)
+        light1.setLight(float(j_obj1['power']))
     file_obj1.close()
 
     file_obj2 = open(WebLed2)
     input = file_obj2.read()
     if input != "":
-		j_obj2 = json.loads(input)
-		light2.setLight(float(j_obj2['power']))
+        j_obj2 = json.loads(input)
+        light2.setLight(float(j_obj2['power']))
     file_obj2.close()
 
     file_obj3 = open(WebLed3)
     input = file_obj3.read()
     if input != "":
-		j_obj3 = json.loads(input)
-		light3.setLight(float(j_obj3['power']))
+        j_obj3 = json.loads(input)
+        light3.setLight(float(j_obj3['power']))
     file_obj3.close()
 
 

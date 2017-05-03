@@ -5,7 +5,8 @@ import socketserver
 from threading import Condition
 from http import server
 import json
-from time import gmtime,strftime
+from time import strftime
+import time
 import threading
 from subprocess import call
 
@@ -87,15 +88,17 @@ class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
 
 
 def convertToMP4(timeFileName):
-    convertToMP4 = "This needs to be pathed to the folder containing the files/MP4Box -add " + timeFileName  + ".h264 " + timeFileName + ".mp4"
+    convertToMP4 = "MP4Box -add /home/pi/CASH/" + timeFileName  + ".h264 -fps 24 /var/www/html/savedvids/" + timeFileName + ".mp4"
     call (convertToMP4, shell=True)
+    removeh264 = "sudo rm /home/pi/CASH/" + timeFileName + ".h264"
+    call(removeh264, shell=True)
 
 
 # cannot do circular buffer to concatinate to recording,
 # circular buffer (picamera spitter) in use for streaming
 # record on motion function
 def recordMotion():
-    camera_file = '/var/www/html/cash_json/WebAlarm.json'
+    camera_file = '/var/www/html/cash_json/CameraState.json'
     cameraState = ""
     prevState = False
     recordingState = False
@@ -115,7 +118,7 @@ def recordMotion():
                 cameraState = j_obj['state']
                 f_obj.close()
             if recordingState == False:
-                timeFileName = ("%Y%m%d%H%M%S", gmtime())
+                timeFileName = strftime("%Y%m%d%H%M%S", time.localtime())
                 camera.start_recording(timeFileName + '.h264', format='h264', splitter_port=2)
                 recordingState = True
                 prevState = "rec"

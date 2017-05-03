@@ -6,7 +6,12 @@ import Door_Switch #doorsensor control module
 import test_BME280 #function to read BME280
 import threading
 import pygame
-import Camera
+import json
+
+camera_file = "/var/www/html/cash_json/CameraState.json"
+
+def startStream():
+	import Camera.streamToWeb
 
 GPIO.setmode(GPIO.BCM)  # BCM = nclumbers in green box next to GPIO bins
 
@@ -31,7 +36,18 @@ test_BME280.readWeather(sensor)
 #initialize the door sensor to read gpio 17
 doorSensor = Door_Switch.doorSensor()
 
-t = threading.Thread(target=Camera.streamToWeb)
+#initialize camera recording state to off
+j_obj = {};
+j_obj['module'] = "camera"
+j_obj['state'] = "off"
+
+output = json.dumps(j_obj)
+file_obj = open(camera_file, "w")
+file_obj.truncate()
+file_obj.write(output)
+file_obj.close()
+
+t = threading.Thread(target=startStream)
 t.start()
 
 while True:
@@ -41,15 +57,11 @@ while True:
 	doorSensor.readAlarm()
 
 	test_BME280.readWeather(sensor)
+	time.sleep(.25)
 
 	LED_Dimming.writeLed(led1,led2,led3)
 	LED_Dimming.readLed(led1,led2,led3)
 
-#    if doorSensor.readDoorSensor(17):
-#        print("switch is open")
-#    else:
-#        print("switch is closed")
-	
 
 time.sleep(5)
 GPIO.cleanup()
