@@ -2,194 +2,299 @@
  * Created by Brian on 3/25/2017.
  */
 $(function() {
-	
-	///////////////////////////////////////
-	/// Functionality for Toggles
-	///
-	///////////////////////////////////////
-	// create all toggles
-	$('.toggles').toggles();
-	
-	// Getting notified of changes on toggles, and the new state: Front Door
-	$('.toggles-fd').on('toggle', function(e, active) {
-		// when switched on
-		if (active) {
-		console.log('Toggle is now ON!');
-		
-			// start ajax call
-			$.ajax({
-				/* *
-				 * URL: Place file path for php
-				 * */
-				url: "../data/request.php",
-				data: {
-					'writeRequest': 'alarm',
-					'requestValue' : 'ON'
-				},
-				type: "POST",
-				context: document.body
-			}).success(function(msg) {
-				console.log('wow ' + msg);
-			});
-			// end ajax call
-			
-		} else {
-			console.log('Toggle is now OFF!');
-		
-			// start ajax call
-			$.ajax({
-				/* *
-				 * URL: Place file path for php
-				 * */
-				url: "../data/request.php",
-				data: {
-					'writeRequest': 'alarm',
-					'requestValue' : 'OFF'
-				},
-				type: "POST",
-				context: document.body
-			}).success(function(msg) {
-				console.log('wow ' + msg);
-			});
-			// end ajax call
-		}
-	});
-	
-	// Getting notified of changes on toggles, and the new state: Light 1
-	$('.toggles-l1').on('toggle', function(e, active) {
-		// when switched on
-		if (active) {
-		console.log('Toggle is now ON!');
-		
-			// start ajax call
-			$.ajax({
-				/* *
-				 * URL: Place file path for php
-				 * */
-				url: "../data/request.php",
-				data: {
-					'writeRequest': 'Light1',
-					'requestValue' : '100'
-				},
-				type: "POST",
-				context: document.body
-			}).success(function(msg) {
-				console.log('wow ' + msg);
-			});
-			// end ajax call
-			
-		} else {
-			console.log('Toggle is now OFF!');
-		
-			// start ajax call
-			$.ajax({
-				/* *
-				 * URL: Place file path for php
-				 * */
-				url: "../data/request.php",
-				data: {
-					'writeRequest': 'Light1',
-					'requestValue' : '0'
-				},
-				type: "POST",
-				context: document.body
-			}).success(function(msg) {
-				console.log('wow ' + msg);
-			});
-			// end ajax call
-		}
-	});
-	
-	// Getting notified of changes on toggles, and the new state: Light 2
-	$('.toggles-l2').on('toggle', function(e, active) {
-		// when switched on
-		if (active) {
-		console.log('Toggle is now ON!');
-		
-			// start ajax call
-			$.ajax({
-				/* *
-				 * URL: Place file path for php
-				 * */
-				url: "../data/request.php",
-				data: {
-					'writeRequest': 'Light2',
-					'requestValue' : '100'
-				},
-				type: "POST",
-				context: document.body
-			}).success(function(msg) {
-				console.log('wow ' + msg);
-			});
-			// end ajax call
-			
-		} else {
-			console.log('Toggle is now OFF!');
-		
-			// start ajax call
-			$.ajax({
-				/* *
-				 * URL: Place file path for php
-				 * */
-				url: "../data/request.php",
-				data: {
-					'writeRequest': 'Light2',
-					'requestValue' : '0'
-				},
-				type: "POST",
-				context: document.body
-			}).success(function(msg) {
-				console.log('wow ' + msg);
-			});
-			// end ajax call
-		}
-	});
-	
-	// Getting notified of changes on toggles, and the new state: Light 3
-	$('.toggles-l3').on('toggle', function(e, active) {
-		// when switched on
-		if (active) {
-		console.log('Toggle is now ON!');
-		
-			// start ajax call
-			$.ajax({
-				/* *
-				 * URL: Place file path for php
-				 * */
-				url: "../data/request.php",
-				data: {
-					'writeRequest': 'Light3',
-					'requestValue' : '100'
-				},
-				type: "POST",
-				context: document.body
-			}).success(function(msg) {
-				console.log('wow ' + msg);
-			});
-			// end ajax call
-			
-		} else {
-			console.log('Toggle is now OFF!');
-		
-			// start ajax call
-			$.ajax({
-				/* *
-				 * URL: Place file path for php
-				 * */
-				url: "../data/request.php",
-				data: {
-					'writeRequest': 'Light3',
-					'requestValue' : '0'
-				},
-				type: "POST",
-				context: document.body
-			}).success(function(msg) {
-				console.log('wow ' + msg);
-			});
-			// end ajax call
-		}
-	});
-	
+
+    ///////////////////////////////////////
+    /// Functionality for Toggles
+    ///
+    ///////////////////////////////////////
+    // create all toggles
+    $('.toggles').toggles();
+
+    // Getting notified of changes on toggles, and the new state: Front Door
+    $('.toggles-fd').on('toggle', function(e, active) {
+        // when switched on
+        if (active) {
+            console.log('Toggle is now ON!');
+
+            // start ajax call
+            $.ajax({
+                /* *
+                 * URL: Place file path for php
+                 * */
+                url: "../script/json_rw.php",
+                data: {
+                    'writeRequest': 'alarm',
+                    'writeValue' : 'on'
+                },
+                type: "POST",
+                context: document.body
+            }).success(function(msg) {
+                console.log('wow ' + msg);
+            });
+            // end ajax call
+
+        } else {
+            console.log('Toggle is now OFF!');
+
+            // start ajax call
+            $.ajax({
+                /* *
+                 * URL: Place file path for php
+                 * */
+                url: "../script/json_rw.php",
+                data: {
+                    'writeRequest': 'alarm',
+                    'writeValue' : 'off'
+                },
+                type: "POST",
+                context: document.body
+            }).success(function(msg) {
+                console.log('wow ' + msg);
+                // check if triggered message appeared
+                if($('.fd-triggered').length){
+                    console.log('fd-triggered does exist');
+                    $('.fd-triggered').remove();
+                }
+            });
+            // end ajax call
+        }
+    });
+
+    // Getting notified of changes on toggles, and the new state: Light 1
+    $('.toggles-l1').on('toggle', function(e, active) {
+        // when switched on
+        if (active) {
+            console.log('Toggle is now ON!');
+
+            // start ajax call
+            $.ajax({
+                /* *
+                 * URL: Place file path for php
+                 * */
+                url: "../script/json_rw.php",
+                data: {
+                    'writeRequest': 'light',
+                    'id' : '1',
+                    'writeValue' : '100'
+                },
+                type: "POST",
+                context: document.body
+            }).success(function(msg) {
+                console.log('wow ' + msg);
+            });
+            // end ajax call
+
+        } else {
+            console.log('Toggle is now OFF!');
+
+            // start ajax call
+            $.ajax({
+                /* *
+                 * URL: Place file path for php
+                 * */
+                url: "../script/json_rw.php",
+                data: {
+                    'writeRequest': 'light',
+                    'id' : '1',
+                    'writeValue' : '0'
+                },
+                type: "POST",
+                context: document.body
+            }).success(function(msg) {
+                console.log('wow ' + msg);
+            });
+            // end ajax call
+        }
+    });
+
+    // Getting notified of changes on toggles, and the new state: Light 2
+    $('.toggles-l2').on('toggle', function(e, active) {
+        // when switched on
+        if (active) {
+            console.log('Toggle is now ON!');
+
+            // start ajax call
+            $.ajax({
+                /* *
+                 * URL: Place file path for php
+                 * */
+                url: "../script/json_rw.php",
+                data: {
+                    'writeRequest': 'light',
+                    'id' : '2',
+                    'writeValue' : '100'
+                },
+                type: "POST",
+                context: document.body
+            }).success(function(msg) {
+                console.log('wow ' + msg);
+            });
+            // end ajax call
+
+        } else {
+            console.log('Toggle is now OFF!');
+
+            // start ajax call
+            $.ajax({
+                /* *
+                 * URL: Place file path for php
+                 * */
+                url: "../script/json_rw.php",
+                data: {
+                    'writeRequest': 'light',
+                    'id' : '2',
+                    'writeValue' : '0'
+                },
+                type: "POST",
+                context: document.body
+            }).success(function(msg) {
+                console.log('wow ' + msg);
+            });
+            // end ajax call
+        }
+    });
+
+    // Getting notified of changes on toggles, and the new state: Light 3
+    $('.toggles-l3').on('toggle', function(e, active) {
+        // when switched on
+        if (active) {
+            console.log('Toggle is now ON!');
+
+            // start ajax call
+            $.ajax({
+                /* *
+                 * URL: Place file path for php
+                 * */
+                url: "../script/json_rw.php",
+                data: {
+                    'writeRequest': 'light',
+                    'id' : '3',
+                    'writeValue' : '100'
+                },
+                type: "POST",
+                context: document.body
+            }).success(function(msg) {
+                console.log('wow ' + msg);
+            });
+            // end ajax call
+
+        } else {
+            console.log('Toggle is now OFF!');
+
+            // start ajax call
+            $.ajax({
+                /* *
+                 * URL: Place file path for php
+                 * */
+                url: "../script/json_rw.php",
+                data: {
+                    'writeRequest': 'light',
+                    'id' : '3',
+                    'writeValue' : '0'
+                },
+                type: "POST",
+                context: document.body
+            }).success(function(msg) {
+                console.log('wow ' + msg);
+            });
+            // end ajax call
+        }
+    });
+
+	//////////////////////////////////////
+	// Functionality to Read Weather Data
+	// from modules
+	//////////////////////////////////////
+
+	// read weather
+    setInterval(function(){
+        $.ajax({
+            /* *
+             * URL: Place file path for php
+             * */
+            url: "../script/json_rw.php",
+            data: {
+                'readRequest': 'weather'
+            },
+            type: "POST",
+            context: document.body
+        }).success(function(msg) {
+            //console.log('wow ' + msg);
+            var obj = JSON.parse(msg);
+
+            console.log(obj);
+
+            // set the temp
+            $('#tempi').html(obj["temp"]);
+            $('#presi').html(obj["pressure"]);
+            $('#humi').html(obj["humidity"]);
+        });
+    }, 5000);
+
+    /////////////////////////////////////////
+    // Functionality to Read if Alarm is
+    // triggered
+    /////////////////////////////////////////
+
+    // read alarm
+	setInterval(function(){
+		$.ajax({
+			// url
+			url: "../script/json_rw.php",
+			data: {
+				'readRequest' : 'alarm'
+			},
+			type: "POST",
+			context: document.body
+		}).success(function(msg) {
+			// states from alarm: on, off, triggered
+			var obj = JSON.parse(msg);
+
+			console.log(obj);
+			console.log( 'module is: ' + obj["module"] + ' state is: ' + obj["state"]);
+
+			if(obj["state"] === "triggered") {
+                $("<code>", {
+                	"class" : "fd-triggered"
+				}).appendTo($('.toggles-fd')).html('TRIGGERED');
+			}
+		});
+	}, 1000);
+
+	/*
+	if($('.fd-triggered').length){
+		console.log('fd-triggered does exist');
+	} else {
+		console.log('fd-triggered doesn\'t exist');
+	}
+	*/
+
+
+	///////////////////////////////////
+    // Commented code is for checking
+    // if alarm is triggered.
+    //////////////////////////////////
+	// set triggered html
+    /*
+    $("<code>", {
+        "class" : "fd-triggered"
+    }).appendTo($('.toggles-fd')).html('TRIGGERED');
+    */
+
+    // check in 5 seconds to see if the Triggered is set
+    /*
+    setInterval(function(){
+        if($('.fd-triggered').length){
+            console.log('fd-triggered does exist');
+        }
+
+        $('.fd-triggered').remove();
+
+        console.log('removed');
+	}, 5000);
+	*/
+    /// end check alarm triggered code
+
     // current blank profiles
     var profiles;
 
