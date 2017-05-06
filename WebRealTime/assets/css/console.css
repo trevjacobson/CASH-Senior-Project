@@ -1,0 +1,42 @@
+#contain1 {
+    background: #9acfea;
+    border-radius: 25px;
+    background: #9acfea;
+    padding: 10px;
+}
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+@media screen and (max-width: 767px) {
+    .row-offcanvas {
+        position: relative;
+        -webkit-transition: all .25s ease-out;
+        -o-transition: all .25s ease-out;
+        transition: all .25s ease-out;
+    }
+
+    .row-offcanvas-right {
+        right: 0;
+    }
+}
+
+.rcorners1 {
+    border-radius: 25px;
+    background: rgba(154,207,234,0.6);
+    padding: 10px;
+    width: 200px;
+    height: 300px;
+}
+
+.rcorners2 {
+    border-radius: 25px;
+    background: #9acfea;
+    padding: 10px;
+    width: 200px;
+    height: 300px;
+    margin-left: 25px;
+}

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <!-- Bootstrap on Local Project -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/console.css">
+    <link rel="stylesheet" href="../assets/jquery-toggles-master/css/toggles.css">
+    <link rel="stylesheet" href="../assets/jquery-toggles-master/css/themes/toggles-modern.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <!--script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script-->
+    <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+    <script type="text/javascript" src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="../assets/js/charts.js"></script>
+    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/google_api.js"></script>
+</head>
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 17px;
+    }
+    .switch input {display:none;}
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 13px;
+        width: 18px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+    input:focus + .slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+    input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+    .slider.round:before {
+        border-radius: 50%;
+    }
+</style>
+<!--above is css code from https://www.w3schools.com/howto/howto_css_switch.asp to stylize on/off buttons-->
+<!--body style="margin:0;background-color:#1c478e;color:#fff;"-->
+<body>
+
+<header>
+    <title>Cash Site</title>
+</header>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/profiles.html">CASH Console</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right">
+                <button id="db-profiles" type="submit" class="btn btn-success">Profiles</button>
+                <button type="submit" class="btn btn-success">Settings</button>
+            </form>
+        </div><!--/.navbar-collapse -->
+    </div>
+</nav>
+
+<div class="component-cash">
+
+<div class="jumbotron row-offcanvas row-offcanvas-right">
+    <div class="container">
+        <h1>Welcome to your CASH Console</h1>
+        <p>CASH: The next best thing</p>
+    </div>
+</div>
+
+<!--h1 style="margin:0; padding:5pxbackground-color:#333; color:#fff;">
+    Welcome to C.A.S.H   >(camera here)
+</h1-->
+
+
+<div><!--main div start HERE!!!!>
+    <h3>Here are some security options for your house</h3-->
+    <form class="container-fluid" action="process.php" method="post">
+        <!--<h3>Tracking</h3>
+        <p>
+            <input type="radio" name="trk" value=OneDay>One Day
+            <input type="radio" name="trk" value=SevDay>One Week
+            <input type="radio" name="trk" value=Month>One Month
+            <input type="radio" name="trk" value=NoTrk checked>Off
+        </p>-->
+
+        <div class="container-fluid " id="contain1">
+            <h3>Choose Home settings</h3>
+            <div class="row">
+                <div class="col-md-3 col-sm-4">
+					<label for="fd">Alarm: </label>
+					<label class="switch">
+					<div class="toggles toggle-modern toggles-fd" data-toggle-on="true" data-toggle-height="35" data-toggle-width="75"></div>
+                    </label>
+                </div>
+
+                <div class="col-md-3 col-sm-4">
+					<label for="fd">Light 1: </label>
+					<label class="switch">
+					<div class="toggles toggle-modern toggles-l1" data-toggle-on="true" data-toggle-height="35" data-toggle-width="75"></div>
+                    </label>
+                </div>
+
+                <div class="col-md-3 col-sm-4">
+					<label for="fd">Light 2: </label>
+					<label class="switch">
+					<div class="toggles toggle-modern toggles-l2" data-toggle-on="true" data-toggle-height="35" data-toggle-width="75"></div>
+                    </label>
+                </div>
+
+                <div class="col-md-3 col-sm-4">
+					<label for="fd">Light 3: </label>
+					<label class="switch">
+					<div class="toggles toggle-modern toggles-l3" data-toggle-on="true" data-toggle-height="35" data-toggle-width="75"></div>
+                    </label>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div class="container-fluid" id="container">
+    <section>
+        <form>
+            <div id="forcast">
+                <h1>Current Weather <h3><span id="weathertime"></span></h3></h1>
+            </div>
+            <h3>Latitude:  <span id="latti"></span> Longitide:  <span id="longi"></span></h3>
+            <div class="container-fluid row">
+                <!-- Weather Indoors -->
+                <div class="col-xs-4 col-md-4 container rcorners1">
+                    <p>Temp inside: 68.0 F <span id="tempi"> </span></p>
+                    </br>
+                    <p>Pressure Inside: <span id="presi"> </span> </p>
+                    </br>
+                    <p>Humidity inside: <span id="humi"> </span></p>
+                </div>
+                <!-- Weather Outdoors -->
+                <div class="col-xs-4 col-md-4 container rcorners2">
+                    <p>Temp Outside: <span id="temp"> </span></p>
+                    </br>
+                    <p>Wind Outside: <span id="wind"></span></p>
+                    </br>
+                    <p>Pressure Outside: <span id="press"> </span> </p>
+                    </br>
+                    <p>Humidity Outside: <span id="humi"> </span></p>
+                </div>
+                <div class="col-xs-12 col-md-6" id="container-graph" style="min-width: 250px; height: 300px; margin: 0 auto"></div>
+            </div>
+
+        </form>
+    </section>
+</div>
+
+
+
+<!--<div id="get-data">
+	Click Here
+</div>
+<div id="change-div">
+	Change Div
+</div>-->
+</br>
+<button id="show-img" type="button" class="btn btn-default">Show Camera</button>
+
+<div id="myModal" class="modal fade" aria-labelledby="my-modalLabel" aria-hidden="true" tabindex="-1" role="dialog">
+    <div class="modal-dialog" data-dismiss="modal">
+        <div class="modal-content"  >
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <img src="../assets/img/home01.jpg" class="img-responsive" style="width: 100%;">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div class="component-profile container-fluid">
+
+</div>
+
+<script type="text/javascript">
+    $("#show-img").click(function() {
+        $('#myModal').modal('show')
+    });
+</script>
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../assets/js/jquery.min.js"><\/script>')</script>
+<script src="../assets/css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="../assets/jquery-toggles-master/toggles.min.js"></script>
+</body>
+
+<!--script type="text/javascript" src="../assets/css/bootstrap-3.3.7-dist/js/bootstrap.js"></script-->
+
+</html>
