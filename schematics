@@ -1,0 +1,12 @@
+light1 to gpio 23
+light 2 to gpio 24
+light 3 to gpio 25
+
+door switch to gpio 17 it doesnt matter which wire (one goes to groun)
+
+weather sensor
+chip vin to pi 3v
+chip gnd to gnd
+chip sck to pi scl
+chip sdi to pi sda
+
